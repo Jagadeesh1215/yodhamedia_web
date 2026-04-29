@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --purple-deep: #1E1245;
+  --purple-mid: #2D1B69;
+  --purple-vivid: #4A2C9E;
+  --purple-electric: #7C3AED;
+  --gold-warm: #C9910D;
+  --gold-bright: #E8A915;
+  --gold-highlight: #F5C842;
+  --gold-pale: #FDE68A;
+  --white: #FFFFFF;
+  --off-white: #F5F3FF;
+  --lavender: #EDE8FF;
+  --slate: #6B6B8A;
+  --charcoal: #1A1035;
+  --dark-bg: #080514;
+  --dark-surface: #120D2E;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+
+  --bg-app: var(--off-white);
+  --bg-hero: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
+  --bg-band: var(--white);
+  --bg-panel: var(--white);
+  --bg-panel-strong: var(--off-white);
+  --bg-frost: rgba(255, 255, 255, 0.82);
+  --text-primary: var(--charcoal);
+  --text-secondary: var(--slate);
+  --text-muted: rgba(26, 16, 53, 0.62);
+  --border-soft: rgba(74, 44, 158, 0.15);
+  --border-strong: rgba(74, 44, 158, 0.22);
+  --shadow-soft: 0 8px 26px rgba(74, 44, 158, 0.08);
+  --shadow-card: 0 16px 44px rgba(74, 44, 158, 0.12);
+  --hero-orb-1: rgba(74, 44, 158, 0.16);
+  --hero-orb-2: rgba(201, 145, 13, 0.12);
+}
+
+.dark {
+  --bg-app: var(--dark-bg);
+  --bg-hero: linear-gradient(180deg, var(--dark-bg) 0%, var(--purple-deep) 100%);
+  --bg-band: var(--purple-deep);
+  --bg-panel: var(--dark-surface);
+  --bg-panel-strong: rgba(18, 13, 46, 0.9);
+  --bg-frost: rgba(18, 13, 46, 0.76);
+  --text-primary: var(--white);
+  --text-secondary: rgba(255, 255, 255, 0.78);
+  --text-muted: rgba(255, 255, 255, 0.55);
+  --border-soft: rgba(124, 58, 237, 0.25);
+  --border-strong: rgba(201, 145, 13, 0.35);
+  --shadow-soft: 0 10px 28px rgba(8, 5, 20, 0.45);
+  --shadow-card: 0 20px 56px rgba(8, 5, 20, 0.58);
+  --hero-orb-1: rgba(74, 44, 158, 0.34);
+  --hero-orb-2: rgba(201, 145, 13, 0.16);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-app);
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-body), sans-serif;
+  transition: background-color 320ms ease, color 320ms ease;
+}
+
+@media (pointer: fine) {
+  * {
+    cursor: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-app);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--purple-vivid);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-warm);
+}
+
+::selection {
+  background: var(--purple-vivid);
+  color: white;
+}
+
+@layer components {
+  .section {
+    @apply px-5 py-20 md:px-10 md:py-28;
+  }
+
+  .container-wide {
+    @apply mx-auto max-w-[1440px];
+  }
+
+  .form-field {
+    @apply h-12 rounded-[var(--radius-sm)] border px-4 font-body text-sm outline-none transition;
+    border-color: var(--border-soft);
+    background: var(--bg-panel);
+    color: var(--text-primary);
+  }
+
+  .form-field::placeholder {
+    color: var(--text-muted);
+  }
+
+  .form-field:focus {
+    border-color: var(--gold-warm);
+  }
+
+  .heading-light {
+    @apply font-heading text-h2 font-bold;
+    color: var(--text-primary);
+  }
+
+  .heading-dark {
+    @apply font-heading text-h2 font-bold;
+    color: var(--text-primary);
+  }
+
+  .body-light {
+    @apply font-body text-base leading-8;
+    color: var(--text-secondary);
+  }
+
+  .body-dark {
+    @apply font-body text-base leading-8;
+    color: var(--text-secondary);
+  }
+
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .panel-strong {
+    background: var(--bg-panel-strong);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .surface-band {
+    background: var(--bg-band);
+  }
+
+  .hero-shell {
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 42%, var(--hero-orb-1) 0%, transparent 62%),
+      radial-gradient(ellipse 60% 40% at 18% 82%, var(--hero-orb-2) 0%, transparent 64%),
+      var(--bg-hero);
+  }
+}

@@ -1,0 +1,8 @@
+node_modules
+.pnpm-store
+.next
+out
+dist
+*.log
+dev-server.err
+.env*
