@@ -26,74 +26,61 @@ import { industries, stats } from "@/lib/constants/site";
 import { services } from "@/lib/constants/services";
 import { ConsultationModal } from "@/components/modals/ConsultationModal";
 import { FloatingIconsHero } from "@/components/ui/floating-icons-hero";
-import { demoIcons } from "@/components/floating-icons-demo";
-
+import { demoIcons } from "@/components/ui/floating-icons-hero";
 
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-24">
-
-      {/* 🔥 Floating Icons (scaled + reduced on mobile) */}
-      <div className="absolute inset-0 z-0 opacity-40 sm:opacity-70">
+    <section className="relative min-h-screen overflow-hidden px-4 pt-24 pb-16 sm:px-4 sm:pt-32 sm:pb-24">
+      {/* 🔥 Scaled floating background hero */}
+      <div className="absolute inset-0 z-0 opacity-35 sm:opacity-55 lg:opacity-80">
         <FloatingIconsHero
-          title=""
-          subtitle=""
-          ctaText=""
-          ctaHref="#"
           icons={demoIcons}
-          className="!bg-transparent scale-[0.55] sm:scale-[0.75] md:scale-100"
+          className="!bg-transparent"
         />
       </div>
 
-      {/* 🔥 Controlled depth light */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_30%,rgba(124,58,237,0.12),transparent_50%),radial-gradient(circle_at_50%_80%,rgba(245,200,66,0.10),transparent_50%)]" />
+      {/* 🔥 Soft radial gradients */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_25%,rgba(124,58,237,0.10),transparent_38%),radial-gradient(circle_at_50%_78%,rgba(245,200,66,0.08),transparent_35%)]" />
 
-      {/* 🔥 Soft readability fade */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-[var(--bg-base)]/50 sm:bg-[var(--bg-base)]/40" />
+      {/* 🔥 Readability overlay */}
+      <div className="pointer-events-none absolute inset-0 z-20 bg-background/70 sm:bg-background/58 lg:bg-background/46" />
 
       {/* 🔥 Content */}
-      <div className="relative z-20 mx-auto max-w-3xl text-center">
-
-        {/* Tag */}
-        <div className="inline-flex items-center rounded-full border border-[var(--border-soft)] bg-[var(--bg-frost)] px-4 sm:px-5 py-2 text-[10px] sm:text-xs uppercase tracking-wider text-gold-warm shadow-[var(--shadow-soft)] backdrop-blur-sm">
+      <div className="relative z-30 mx-auto max-w-4xl text-center">
+        {/* <div className="inline-flex items-center rounded-full border border-border bg-card/60 px-4 py-2 text-[10px] uppercase tracking-widest text-amber-500 shadow-sm backdrop-blur-sm sm:px-5 sm:text-xs">
           Digital Growth Partner
-        </div>
+        </div> */}
 
-        {/* Heading */}
-        <h1 className="mt-6 sm:mt-8 text-3xl sm:text-5xl md:text-6xl font-display font-bold leading-tight text-[var(--text-primary)]">
+        <h1 className="mt-6 text-3xl font-bold leading-tight text-foreground sm:mt-8 sm:text-5xl md:text-6xl lg:text-7xl">
           We Build{" "}
-          <span className="bg-gradient-to-r from-purple-vivid to-gold-warm bg-clip-text italic text-transparent">
-            Growth Systems
+          <span className="bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text  text-transparent">
+            Digital Growth Systems
           </span>{" "}
           for Modern Businesses
         </h1>
 
-        {/* Subtext */}
-        <p className="mt-5 sm:mt-6 mx-auto max-w-xl sm:max-w-2xl text-[15px] sm:text-[17px] leading-7 sm:leading-8 text-[var(--text-secondary)]">
-          From content creation to customer acquisition, we design, manage, and scale your digital presence with precision and performance.
+        <p className="mx-auto mt-5 max-w-xl text-sm text-muted-foreground sm:mt-6 sm:text-[17px] sm:leading-8">
+          From content to conversions - we design, manage, and scale your digital presence with precision and performance.
         </p>
 
-        <p className="mt-3 mx-auto max-w-lg text-xs sm:text-sm text-[var(--text-muted)]">
+        <p className="mx-auto mt-3 max-w-lg text-xs text-muted-foreground/70 sm:text-xs leading-3">
           Serving hospitals, doctors, and businesses with structured digital solutions that drive visibility, trust, and measurable growth.
         </p>
 
-        {/* CTA */}
-        <div className="mt-10 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4 sm:flex-row sm:justify-center w-full">
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
           <MagneticButton>
             <ConsultationModal />
           </MagneticButton>
-
-          <Button href="/services" variant="outline">
+          <Button variant="outline">
             Explore Services
           </Button>
         </div>
 
-        {/* Stats */}
-        <div className="mt-10 sm:mt-12 flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-[var(--text-muted)]">
+        <div className="mt-8 flex flex-wrap justify-center gap-4 text-xs text-muted-foreground sm:mt-10 sm:gap-8 sm:text-sm">
           {["50+ Clients", "100+ Projects", "5+ Industries"].map((item) => (
             <span key={item} className="flex items-center gap-2">
-              <Check className="h-4 w-4 text-gold-warm" />
+              <Check className="h-4 w-4 text-amber-500" />
               {item}
             </span>
           ))}
