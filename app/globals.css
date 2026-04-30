@@ -3,24 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --purple-deep: #1E1245;
-  --purple-mid: #2D1B69;
-  --purple-vivid: #4A2C9E;
-  --purple-electric: #7C3AED;
-  --gold-warm: #C9910D;
-  --gold-bright: #E8A915;
-  --gold-highlight: #F5C842;
-  --gold-pale: #FDE68A;
-  --white: #FFFFFF;
-  --off-white: #F5F3FF;
-  --lavender: #EDE8FF;
-  --slate: #6B6B8A;
-  --charcoal: #1A1035;
+  --purple-deep: #1e1245;
+  --purple-mid: #2d1b69;
+  --purple-vivid: #4a2c9e;
+  --purple-electric: #7c3aed;
+  --gold-warm: #c9910d;
+  --gold-bright: #e8a915;
+  --gold-highlight: #f5c842;
+  --gold-pale: #fde68a;
+  --white: #ffffff;
+  --off-white: #f5f3ff;
+  --lavender: #ede8ff;
+  --slate: #6b6b8a;
+  --charcoal: #1a1035;
   --dark-bg: #080514;
-  --dark-surface: #120D2E;
+  --dark-surface: #120d2e;
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 18px;
+
+  --font-body-stack: var(--font-body), var(--font-alt), system-ui, sans-serif;
 
   --bg-app: var(--off-white);
   --bg-hero: linear-gradient(180deg, var(--off-white) 0%, var(--white) 100%);
@@ -41,7 +43,11 @@
 
 .dark {
   --bg-app: var(--dark-bg);
-  --bg-hero: linear-gradient(180deg, var(--dark-bg) 0%, var(--purple-deep) 100%);
+  --bg-hero: linear-gradient(
+    180deg,
+    var(--dark-bg) 0%,
+    var(--purple-deep) 100%
+  );
   --bg-band: var(--purple-deep);
   --bg-panel: var(--dark-surface);
   --bg-panel-strong: rgba(18, 13, 46, 0.9);
@@ -74,8 +80,10 @@ body {
   min-height: 100vh;
   background: var(--bg-app);
   color: var(--text-primary);
-  font-family: var(--font-body), sans-serif;
-  transition: background-color 320ms ease, color 320ms ease;
+  font-family: var(--font-body-stack);
+  transition:
+    background-color 320ms ease,
+    color 320ms ease;
 }
 
 @media (pointer: fine) {
@@ -170,8 +178,16 @@ body {
 
   .hero-shell {
     background:
-      radial-gradient(ellipse 80% 60% at 70% 42%, var(--hero-orb-1) 0%, transparent 62%),
-      radial-gradient(ellipse 60% 40% at 18% 82%, var(--hero-orb-2) 0%, transparent 64%),
+      radial-gradient(
+        ellipse 80% 60% at 70% 42%,
+        var(--hero-orb-1) 0%,
+        transparent 62%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 18% 82%,
+        var(--hero-orb-2) 0%,
+        transparent 64%
+      ),
       var(--bg-hero);
   }
 }

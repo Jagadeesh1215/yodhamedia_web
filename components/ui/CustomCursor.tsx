@@ -1,117 +1,153 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useGlobalMouse } from "@/lib/mouse";
+/* ---------- SVG BLADE ---------- */
+
+const Blade = () => (
+  <svg viewBox="0 0 24 24" className="w-full h-full">
+    {/* Blade body */}
+    <path
+      d="M12 2 
+         L14.2 8 
+         L13 20 
+         L11 20 
+         L9.8 8 
+         Z"
+      fill="url(#bladeGrad)"
+    />
+
+    {/* Center ridge (fuller) */}
+    <path
+      d="M12 3 L12 20"
+      stroke="#fff"
+      strokeOpacity="0.6"
+      strokeWidth="0.6"
+    />
+
+    {/* Edge highlight */}
+    <path
+      d="M12 2 L14.2 8"
+      stroke="#fff"
+      strokeOpacity="0.8"
+      strokeWidth="0.5"
+    />
+
+    {/* Guard */}
+    <rect x="9" y="20" width="6" height="1.2" rx="0.4" fill="#7C3AED" />
+
+    {/* Grip */}
+    <rect x="10.5" y="21.2" width="3" height="1.8" rx="0.5" fill="#1f1f1f" />
+
+    {/* Pommel */}
+    <circle cx="12" cy="23.2" r="0.8" fill="#F5C842" />
+
+    {/* Gradient */}
+    <defs>
+      <linearGradient id="bladeGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#ffffff" />
+        <stop offset="50%" stopColor="#e5e7eb" />
+        <stop offset="100%" stopColor="#9ca3af" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
 
 export function CustomCursor() {
   const [active, setActive] = useState(false);
   const [engagement, setEngagement] = useState(false);
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  
-  // Warrior's core — fast & sharp
-  const coreX = useSpring(x, { stiffness: 500, damping: 28 });
-  const coreY = useSpring(y, { stiffness: 500, damping: 28 });
-  
-  // Shield ring — protective & strong
-  const shieldX = useSpring(x, { stiffness: 200, damping: 30 });
-  const shieldY = useSpring(y, { stiffness: 200, damping: 30 });
-  
-  // Social radar — trailing pulse like social reach
-  const radarX = useSpring(x, { stiffness: 100, damping: 20 });
-  const radarY = useSpring(y, { stiffness: 100, damping: 20 });
+  const { mouseX: x, mouseY: y } = useGlobalMouse();
+
+  // Smooth motion layers
+  const coreX = useSpring(x, { stiffness: 500, damping: 30 });
+  const coreY = useSpring(y, { stiffness: 500, damping: 30 });
+
+  const auraX = useSpring(x, { stiffness: 150, damping: 25 });
+  const auraY = useSpring(y, { stiffness: 150, damping: 25 });
 
   useEffect(() => {
-    const move = (event: MouseEvent) => {
-      x.set(event.clientX);
-      y.set(event.clientY);
-    };
-    
     const over = (event: Event) => {
       const target = event.target as HTMLElement;
+
       const isCTA = Boolean(target.closest("a, button, [data-cursor='interactive']"));
-      const isSocial = Boolean(target.closest("[data-social='true'], .social-icon, [data-like='true']"));
+      const isSocial = Boolean(target.closest("[data-social='true'], .social-icon"));
+
       setActive(isCTA);
       setEngagement(isSocial);
     };
-    
-    window.addEventListener("mousemove", move);
+
     window.addEventListener("mouseover", over);
-    
+
     return () => {
-      window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
     };
-  }, [x, y]);
+  }, []);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[100] hidden md:block">
-      
-      {/* SOCIAL RADAR — outer ring representing media reach */}
-      <motion.span
+
+      {/* 🔥 ENERGY AURA */}
+      <motion.div
         className="fixed rounded-full"
         animate={{
-          scale: engagement ? [1, 1.5, 1] : active ? 1.3 : 1,
-          opacity: engagement ? [0.5, 0.9, 0.5] : 0.5,
+          scale: engagement ? [1, 1.6, 1] : active ? 1.3 : 1,
+          opacity: engagement ? [0.4, 0.9, 0.4] : 0.5,
         }}
         transition={{
-          duration: engagement ? 0.6 : 0,
+          duration: 0.6,
           repeat: engagement ? Infinity : 0,
         }}
         style={{
-          x: radarX,
-          y: radarY,
+          x: auraX,
+          y: auraY,
           translateX: "-50%",
           translateY: "-50%",
-          width: "48px",
-          height: "48px",
+          width: "50px",
+          height: "50px",
           border: "2px solid",
-          borderColor: "#F5C842", // gold-highlight (bright)
-          boxShadow: "0 0 20px rgba(245, 200, 66, 0.7), 0 0 40px rgba(124, 58, 237, 0.4)",
+          borderColor: "#F5C842",
+          boxShadow:
+            "0 0 20px rgba(245,200,66,0.7), 0 0 40px rgba(124,58,237,0.4)",
         }}
       />
-      
-      {/* WARRIOR SHIELD — main ring (strong & bold) */}
-      <motion.span
-        className="fixed rounded-full"
+
+      {/* ⚔️ BLADE CORE */}
+      <motion.div
+        className="fixed"
         animate={{
-          scale: active ? 1.8 : 1,
-          rotate: active ? [0, 15, -15, 0] : 0,
-          borderColor: active ? "#F5C842" : "#7C3AED",
+          scale: active ? 1.4 : 1,
+          rotate: active ? 15 : 0,
         }}
-        transition={{ duration: 0.25 }}
+        transition={{ duration: 0.2 }}
         style={{
-          x: shieldX,
-          y: shieldY,
+          x: coreX,
+          y: coreY,
           translateX: "-50%",
           translateY: "-50%",
-          width: "38px",
-          height: "38px",
-          borderWidth: "2.5px",
-          borderStyle: "solid",
-          borderColor: "#7C3AED", // purple-electric
-          backgroundColor: "rgba(124, 58, 237, 0.15)",
-          boxShadow: "0 0 15px rgba(124, 58, 237, 0.5)",
+          width: "18px",
+          height: "18px",
+          filter: "drop-shadow(0 0 10px rgba(245,200,66,0.8))",
         }}
-      />
-      
-      {/* WARRIOR CORE — bright center dot */}
-      <motion.span
+      >
+        <Blade />
+      </motion.div>
+
+      {/* 🔥 CORE DOT */}
+      <motion.div
         className="fixed rounded-full"
         animate={{
-          scale: active ? 1.5 : 1,
-          backgroundColor: engagement ? "#FDE68A" : "#F5C842", // gold-pale or gold-highlight
-          boxShadow: engagement 
-            ? "0 0 20px rgba(245, 200, 66, 0.8)" 
-            : "0 0 10px rgba(245, 200, 66, 0.5)",
+          scale: active ? 1.6 : 1,
+          backgroundColor: engagement ? "#FDE68A" : "#F5C842",
         }}
         style={{
           x: coreX,
           y: coreY,
           translateX: "-50%",
           translateY: "-50%",
-          width: "10px",
-          height: "10px",
+          width: "6px",
+          height: "6px",
+          boxShadow: "0 0 10px rgba(245,200,66,0.7)",
         }}
       />
     </div>

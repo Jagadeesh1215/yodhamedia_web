@@ -25,57 +25,78 @@ import { blogPosts } from "@/lib/constants/blog";
 import { industries, stats } from "@/lib/constants/site";
 import { services } from "@/lib/constants/services";
 import { ConsultationModal } from "@/components/modals/ConsultationModal";
+import { FloatingIconsHero } from "@/components/ui/floating-icons-hero";
+import { demoIcons } from "@/components/floating-icons-demo";
 
-const HeroScene = dynamic(() => import("@/components/3d/HeroScene").then((mod) => mod.HeroSceneWrapper), {
-  ssr: false,
-  loading: () => <div className="h-[420px] rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--bg-panel-strong)] md:h-[560px]" />,
-});
+
 
 export function HeroSection() {
   return (
-    <section className="hero-shell relative min-h-screen overflow-hidden px-5 pb-16 pt-32 md:px-10">
-      <div className="container-wide grid min-h-[calc(100vh-8rem)] items-center gap-12 lg:grid-cols-[0.93fr_1.07fr]">
-        <ScrollReveal>
-          <div className="mb-5 inline-flex items-center rounded-full border border-[var(--border-soft)] bg-[var(--bg-frost)] px-4 py-2 font-label text-label uppercase text-gold-warm shadow-[var(--shadow-soft)]">
-            Digital Growth Partner
-          </div>
-          <h1 className="max-w-4xl font-display text-hero font-bold text-[var(--text-primary)]">
-            We Build <span className="bg-gradient-to-r from-purple-vivid to-gold-warm bg-clip-text italic text-transparent">Digital Growth Systems</span> for Modern Businesses
-          </h1>
-          <p className="mt-6 max-w-2xl font-body text-[17px] leading-8 text-[var(--text-secondary)]">
-            From content creation to customer acquisition, we design, manage, and scale your digital presence with precision and performance.
-          </p>
-          <p className="mt-4 max-w-2xl font-body text-[15px] leading-7 text-[var(--text-muted)]">
-            Serving hospitals, doctors, and businesses with structured digital solutions that drive visibility, trust, and measurable growth.
-          </p>
-          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-            <MagneticButton>
-              <ConsultationModal />
-            </MagneticButton>
-            <Button href="/services" variant="outline">
-              Explore Services
-            </Button>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-5 font-body text-sm text-[var(--text-muted)]">
-            {["50+ Clients", "100+ Projects", "5+ Industries"].map((item) => (
-              <span key={item} className="flex items-center gap-2">
-                <Check className="h-4 w-4 text-gold-warm" />
-                {item}
-              </span>
-            ))}
-          </div>
-        </ScrollReveal>
-        <div className="relative hidden md:block">
-          <div className="pointer-events-none absolute inset-0 scale-95 rounded-[var(--radius-lg)] bg-purple-electric/20 blur-3xl" />
-          <div className="relative rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--bg-panel-strong)] p-2 shadow-[var(--shadow-card)]">
-            <HeroScene />
-          </div>
+    <section className="relative min-h-screen overflow-hidden px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-24">
+
+      {/* 🔥 Floating Icons (scaled + reduced on mobile) */}
+      <div className="absolute inset-0 z-0 opacity-40 sm:opacity-70">
+        <FloatingIconsHero
+          title=""
+          subtitle=""
+          ctaText=""
+          ctaHref="#"
+          icons={demoIcons}
+          className="!bg-transparent scale-[0.55] sm:scale-[0.75] md:scale-100"
+        />
+      </div>
+
+      {/* 🔥 Controlled depth light */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_50%_30%,rgba(124,58,237,0.12),transparent_50%),radial-gradient(circle_at_50%_80%,rgba(245,200,66,0.10),transparent_50%)]" />
+
+      {/* 🔥 Soft readability fade */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-[var(--bg-base)]/50 sm:bg-[var(--bg-base)]/40" />
+
+      {/* 🔥 Content */}
+      <div className="relative z-20 mx-auto max-w-3xl text-center">
+
+        {/* Tag */}
+        <div className="inline-flex items-center rounded-full border border-[var(--border-soft)] bg-[var(--bg-frost)] px-4 sm:px-5 py-2 text-[10px] sm:text-xs uppercase tracking-wider text-gold-warm shadow-[var(--shadow-soft)] backdrop-blur-sm">
+          Digital Growth Partner
         </div>
-        <div className="md:hidden">
-          <div className="panel-strong p-8 text-center">
-            <Sparkles className="mx-auto h-12 w-12 text-gold-highlight" />
-            <p className="mt-4 font-heading text-2xl font-bold text-[var(--text-primary)]">Structured growth, built visually.</p>
-          </div>
+
+        {/* Heading */}
+        <h1 className="mt-6 sm:mt-8 text-3xl sm:text-5xl md:text-6xl font-display font-bold leading-tight text-[var(--text-primary)]">
+          We Build{" "}
+          <span className="bg-gradient-to-r from-purple-vivid to-gold-warm bg-clip-text italic text-transparent">
+            Growth Systems
+          </span>{" "}
+          for Modern Businesses
+        </h1>
+
+        {/* Subtext */}
+        <p className="mt-5 sm:mt-6 mx-auto max-w-xl sm:max-w-2xl text-[15px] sm:text-[17px] leading-7 sm:leading-8 text-[var(--text-secondary)]">
+          From content creation to customer acquisition, we design, manage, and scale your digital presence with precision and performance.
+        </p>
+
+        <p className="mt-3 mx-auto max-w-lg text-xs sm:text-sm text-[var(--text-muted)]">
+          Serving hospitals, doctors, and businesses with structured digital solutions that drive visibility, trust, and measurable growth.
+        </p>
+
+        {/* CTA */}
+        <div className="mt-10 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4 sm:flex-row sm:justify-center w-full">
+          <MagneticButton>
+            <ConsultationModal />
+          </MagneticButton>
+
+          <Button href="/services" variant="outline">
+            Explore Services
+          </Button>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-10 sm:mt-12 flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-[var(--text-muted)]">
+          {["50+ Clients", "100+ Projects", "5+ Industries"].map((item) => (
+            <span key={item} className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-gold-warm" />
+              {item}
+            </span>
+          ))}
         </div>
       </div>
     </section>

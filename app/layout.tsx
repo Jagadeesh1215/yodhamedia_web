@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed, Cormorant_Garamond, DM_Sans, JetBrains_Mono, Outfit } from "next/font/google";
+import { Work_Sans, Manrope, Barlow_Condensed, Cormorant_Garamond, JetBrains_Mono, Outfit } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
@@ -7,41 +7,20 @@ import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { jsonLd, site } from "@/lib/constants/site";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
+const body = Work_Sans({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const heading = Outfit({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const body = DM_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-body",
   display: "swap",
 });
 
-const label = Barlow_Condensed({
+const altBody = Manrope({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-label",
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-alt",
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -67,10 +46,46 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: site.url },
 };
+const display = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+const heading = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
+const label = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-label",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${display.variable} ${heading.variable} ${body.variable} ${label.variable} ${mono.variable}`}>
+    <html
+  lang="en"
+  className={`
+    ${display.variable}
+    ${heading.variable}
+    ${body.variable}
+    ${altBody.variable}
+    ${label.variable}
+    ${mono.variable}
+  `}
+>
       <body>
         <Providers>
           <Navbar />
