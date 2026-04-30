@@ -32,14 +32,23 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-10">
-        <Link href="/" className="group flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] border border-gold-warm/45 bg-gradient-to-br from-purple-vivid to-gold-warm text-xl font-bold text-white shadow-gold-sm">
-            Y
-          </span>
-          <span>
-            <span className="block font-heading text-lg font-bold text-[var(--text-primary)]">YodhaMedia</span>
-            <span className="block font-label text-[10px] uppercase tracking-[0.25em] text-gold-warm">LLP</span>
-          </span>
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="relative w-10 h-10">
+            <div className="absolute inset-0 bg-gold-gradient rounded-sm rotate-45 group-hover:rotate-90 transition-transform duration-500" />
+            <div className="absolute inset-1 bg-ink rounded-sm rotate-45" />
+            <span className="absolute inset-0 flex items-center justify-center text-gold font-display font-bold text-sm">
+              Y
+            </span>
+          </div>
+          <div>
+            <span className="font-display text-xl font-bold tracking-widest text-ghost group-hover:text-gold transition-colors duration-300">
+              YODHA
+            </span>
+            <span className="block font-heading text-xs tracking-[0.3em] text-gold/70 -mt-1">
+              MEDIA
+            </span>
+          </div>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
