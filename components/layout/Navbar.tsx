@@ -287,14 +287,26 @@ export function Navbar() {
 
             {/* Mobile Menu Header */}
             <div className="relative flex items-center justify-between px-6 py-5">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <span className="font-display text-xl font-bold text-gold-warm">YODHA MEDIA</span>
-                <p className="text-[10px] tracking-wider text-[var(--text-muted)]">Digital Growth Partner</p>
-              </motion.div>
+              <div className="relative">
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-gold-warm to-gold-highlight rounded-sm rotate-45"
+              animate={{ rotate: [45, 405] }}
+              transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute inset-[2px] bg-[var(--bg-app)] rounded-sm rotate-45"
+              animate={{ rotate: [45, 405] }}
+              transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+            />
+            <motion.span
+              className="relative flex h-10 w-10 items-center justify-center font-display text-lg font-bold text-gold-warm"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", delay: 0.3 }}
+            >
+              Y
+            </motion.span>
+          </div>
               
               <div className="flex items-center gap-3">
                 <ThemeToggle />
@@ -412,21 +424,6 @@ export function Navbar() {
                 transition={{ delay: 0.5 }}
                 className="space-y-4 pt-6 mt-6 border-t border-[var(--border-soft)]"
               >
-                <div className="flex justify-center gap-6">
-                  {[
-                    { icon: TrendingUp, label: "Growth" },
-                    { icon: Users, label: "Community" },
-                    { icon: BarChart3, label: "Analytics" },
-                  ].map((item, i) => (
-                    <div key={i} className="text-center">
-                      <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-warm/10 text-gold-warm">
-                        <item.icon className="h-5 w-5" />
-                      </div>
-                      <span className="text-xs text-[var(--text-muted)]">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-                
                 <div className="text-center">
                   <ConsultationModal triggerClassName="w-full" />
                 </div>
