@@ -32,13 +32,6 @@ const config = {
         slate: "#6B6B8A",
         charcoal: "#1A1035",
       },
-      fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
-        heading: ["var(--font-heading)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
-        label: ["var(--font-label)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
-      },
       fontSize: {
         hero: ["clamp(52px,6vw,88px)", { lineHeight: "1.08" }],
         h2: ["clamp(32px,4vw,52px)", { lineHeight: "1.15" }],

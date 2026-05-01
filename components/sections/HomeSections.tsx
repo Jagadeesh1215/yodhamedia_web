@@ -1,10 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   BadgeCheck,
-  Building2,
+  BriefcaseBusiness,
   Check,
   Hospital,
   LineChart,
@@ -14,7 +13,7 @@ import {
   Stethoscope,
   Store,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -27,6 +26,7 @@ import { services } from "@/lib/constants/services";
 import { ConsultationModal } from "@/components/modals/ConsultationModal";
 import { FloatingIconsHero } from "@/components/ui/floating-icons-hero";
 import { demoIcons } from "@/components/ui/floating-icons-hero";
+import { useEffect, useRef, useState } from "react";
 
 export function HeroSection() {
   return (
@@ -51,7 +51,7 @@ export function HeroSection() {
           {/* 2. The Deep Purple Core */}
           <div className="relative flex items-center gap-3 rounded-full bg-purple-deep/95 px-5 py-2 backdrop-blur-xl">
             {/* 4. The Shimmering Gold Text */}
-            <span className="animate-shimmer bg-gradient-to-r from-gold-warm via-gold-pale to-gold-warm bg-[length:200%_auto] bg-clip-text text-label font-medium uppercase tracking-[0.2em] text-transparent">
+            <span className="animate-shimmer bg-gradient-to-r from-gold-warm via-gold-pale to-gold-warm bg-[length:200%_auto] bg-clip-text text-label text-white font-medium uppercase tracking-[0.2em] text-transparent">
               Digital Growth Partner
             </span>
           </div>
@@ -108,16 +108,16 @@ export function TrustBar() {
     "Influencer Marketing Network",
   ];
   return (
-    <div className="surface-band px-5 py-6 md:px-10">
-      <div className="container-wide panel overflow-hidden px-0 py-4">
+    <div className="surface-band border-y-purple-electric/70 border-y">
+      <div className=" overflow-hidden px-0 py-3">
         <div className="flex w-max animate-ticker gap-8 whitespace-nowrap">
           {[...items, ...items].map((item, index) => (
             <span
               key={`${item}-${index}`}
-              className="font-label text-[13px] uppercase tracking-wider text-[var(--text-secondary)]"
+              className="font-label text-[18px] uppercase tracking-wider text-[var(--text-secondary)]"
             >
-              <span className="text-gold-highlight">*</span> {item}{" "}
-              <span className="ml-8 text-gold-warm">+</span>
+              {item}{" "}
+              <span className="ml-8 text-gold-warm">|</span>
             </span>
           ))}
         </div>
@@ -139,7 +139,7 @@ export function WhoWeHelp() {
       text: "Grow your practice with consistent social presence and ORM strategies.",
     },
     {
-      icon: Building2,
+      icon: BriefcaseBusiness,
       title: "Businesses & Services",
       text: "Expand reach, generate qualified leads, and scale with structured systems.",
     },
@@ -158,22 +158,33 @@ export function WhoWeHelp() {
           accent="Who Want to Grow"
         />
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {cards.map((card, index) => (
-            <ScrollReveal key={card.title} delay={index * 0.06}>
-              <div className="panel h-full p-8 text-center transition duration-300 hover:-translate-y-2 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-card)]">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-purple-vivid/10 text-purple-vivid transition group-hover:scale-110">
-                  <card.icon className="h-8 w-8" />
-                </div>
-                <h3 className="mt-6 font-heading text-xl font-semibold text-[var(--text-primary)]">
-                  {card.title}
-                </h3>
-                <p className="mt-3 font-body text-sm leading-7 text-[var(--text-secondary)]">
-                  {card.text}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
+  {cards.map((card, index) => (
+    <ScrollReveal key={card.title} delay={index * 0.06}>
+      <div className="group panel h-full p-8 text-center transition duration-300 hover:-translate-y-2 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-card)]">
+        
+        {/* ICON CONTAINER */}
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--hero-orb-1)] transition-all duration-300 group-hover:scale-110 group-hover:bg-[var(--hero-orb-2)]">
+          
+          {/* THE ICON */}
+          <card.icon 
+            className="h-8 w-8 transition-colors duration-300 
+            text-[var(--purple-electric)] 
+            dark:text-[var(--gold-bright)]" 
+          />
+          
         </div>
+
+        <h3 className="mt-6 font-heading text-xl font-semibold text-[var(--text-primary)]">
+          {card.title}
+        </h3>
+        
+        <p className="mt-3 font-body text-sm leading-7 text-[var(--text-secondary)]">
+          {card.text}
+        </p>
+      </div>
+    </ScrollReveal>
+  ))}
+</div>
       </div>
     </section>
   );
@@ -188,29 +199,55 @@ export function ServicesGrid() {
           title="Complete Digital Growth,"
           accent="Under One System"
         />
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => (
-            <ScrollReveal key={service.slug} delay={index * 0.05}>
+            <ScrollReveal key={service.slug} delay={index * 0.1}>
               <Link
                 href={`/services/${service.slug}`}
-                className="panel group relative block h-full overflow-hidden p-8 transition duration-300 hover:-translate-y-1 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-card)]"
+                className="group relative block h-full p-[1px] transition-all duration-500 hover:-translate-y-2"
               >
-                <span className="absolute left-0 top-0 h-full w-1 scale-y-0 bg-gold-warm transition-transform duration-500 group-hover:scale-y-100" />
-                <span className="font-mono text-sm text-gold-warm">
-                  0{index + 1}
-                </span>
-                <div className="mt-6 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-purple-vivid to-purple-mid text-gold-highlight shadow-purple-sm transition group-hover:shadow-gold-sm">
-                  <service.icon className="h-7 w-7 text-white" />
+                {/* OUTER BORDER (The Glow Frame) */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--border-soft)] to-transparent opacity-50 group-hover:from-[var(--gold-bright)] group-hover:to-[var(--purple-electric)] group-hover:opacity-100 transition-opacity duration-500" 
+                     style={{ clipPath: 'polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%)' }} 
+                />
+
+                {/* MAIN CONTENT AREA */}
+                <div 
+                  className="relative h-full bg-[var(--bg-panel)] p-8 transition-colors duration-500 group-hover:bg-[var(--bg-frost)]"
+                  style={{ 
+                    clipPath: 'polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  {/* FLOATING INDEX NUMBER */}
+                  <div className="absolute right-6 top-6 font-mono text-5xl font-black text-[var(--purple-vivid)] opacity-5 group-hover:opacity-10 transition-opacity">
+                    {index + 1}
+                  </div>
+
+                  {/* ICON BLOCK: Using a "Hexagon-like" container */}
+                  <div className="relative flex h-16 w-16 items-center justify-center">
+                    <div className="absolute inset-0 rotate-45 rounded-xl bg-[var(--purple-vivid)] opacity-10 group-hover:rotate-90 group-hover:bg-[var(--gold-warm)] group-hover:opacity-20 transition-all duration-500" />
+                    <service.icon className="relative h-8 w-8 text-[var(--purple-electric)] dark:text-[var(--gold-bright)] transition-transform duration-500 group-hover:scale-110" />
+                  </div>
+
+                  <h3 className="mt-8 font-heading text-2xl font-bold tracking-tight text-[var(--text-primary)]">
+                    {service.name}
+                  </h3>
+
+                  <p className="mt-4 font-body text-sm leading-relaxed text-[var(--text-secondary)]">
+                    {service.description}
+                  </p>
+
+                  {/* ANIMATED LINK FOOTER */}
+                  <div className="mt-8 flex items-center gap-2 font-heading text-xs font-bold uppercase tracking-widest text-[var(--gold-warm)]">
+                    <span className="h-[1px] w-8 bg-[var(--gold-warm)] transition-all duration-500 group-hover:w-12" />
+                    <span>Discover More</span>
+                  </div>
                 </div>
-                <h3 className="mt-6 font-heading text-xl font-semibold text-[var(--text-primary)]">
-                  {service.name}
-                </h3>
-                <p className="mt-3 font-body text-sm leading-7 text-[var(--text-secondary)]">
-                  {service.description}
-                </p>
-                <span className="mt-6 inline-flex font-heading text-sm font-semibold text-gold-warm">
-                  Learn More {"->"}
-                </span>
+
+                {/* DECORATIVE CORNER SHARD */}
+                <div className="absolute bottom-0 right-0 h-8 w-8 bg-[var(--gold-highlight)] opacity-0 transition-all duration-500 group-hover:opacity-100" 
+                     style={{ clipPath: 'polygon(100% 0, 100% 100%, 0 100%)' }} />
               </Link>
             </ScrollReveal>
           ))}
@@ -220,53 +257,190 @@ export function ServicesGrid() {
   );
 }
 
+// Process Steps with Scroll-Linked Animations
+const steps = [
+  {
+    title: "Strategy",
+    text: "We understand your business, audience, and goals to design a growth plan.",
+    side: "left",
+  },
+  {
+    title: "Creation",
+    text: "From content to creatives, we build assets that reflect your brand professionally.",
+    side: "right",
+  },
+  {
+    title: "Execution",
+    text: "We manage platforms, campaigns, and communication with precision.",
+    side: "left",
+  },
+  {
+    title: "Growth",
+    text: "We track, optimize, and scale your digital presence continuously.",
+    side: "right",
+  },
+];
+
 export function ProcessSteps() {
-  const steps = [
-    [
-      "Strategy",
-      "We understand your business, audience, and goals to design a clear, actionable growth plan.",
-    ],
-    [
-      "Creation",
-      "From content to creatives, we build assets that reflect your brand professionally and authentically.",
-    ],
-    [
-      "Execution",
-      "We manage platforms, campaigns, and communication with precision and consistency every day.",
-    ],
-    [
-      "Growth",
-      "We track, optimize, and scale your digital presence continuously for long-term results.",
-    ],
-  ];
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [svgHeight, setSvgHeight] = useState(0);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      setSvgHeight(containerRef.current.offsetHeight);
+    }
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 70%", "end 50%"],
+  });
+
+  const pathLength = useSpring(scrollYProgress, {
+    stiffness: 40,
+    damping: 20,
+  });
+
+  // S‑curve path (you can tweak the Q/T control points)
+  const curvePath = `
+    M 50 0 
+    Q 50 150, 80 250 
+    T 50 500 
+    T 20 750 
+    T 50 1000
+  `;
+
   return (
-    <section className="section surface-band">
+    <section
+      ref={containerRef}
+      className="section surface-band relative py-24 md:py-32 overflow-hidden"
+    >
       <div className="container-wide">
         <SectionHeading
-          label="Our Process"
-          title="Our Structured Approach"
-          accent="to Growth"
+          label="Our Journey"
+          title="The Strategic"
+          accent="Roadmap"
         />
-        <div className="relative mt-14 grid gap-8 lg:grid-cols-4">
-          <div className="absolute left-[12%] right-[12%] top-8 hidden border-t-2 border-dashed border-gold-warm/30 lg:block" />
-          {steps.map(([title, text], index) => (
-            <ScrollReveal key={title} delay={index * 0.12}>
-              <div className="relative text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border-4 border-[var(--bg-app)] bg-gold-warm font-display text-2xl font-bold text-white outline outline-2 outline-dashed outline-gold-warm/40">
-                  0{index + 1}
-                </div>
-                <h3 className="mt-6 font-heading text-xl font-bold text-[var(--text-primary)]">
-                  {title}
-                </h3>
-                <p className="mt-3 font-body text-sm leading-7 text-[var(--text-secondary)]">
-                  {text}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
+
+        <div className="relative mt-12 md:mt-16">
+          {/* ANIMATED CURVED LINE (SVG) */}
+          <div className="absolute left-1/2 top-0 h-full w-full -translate-x-1/2 pointer-events-none hidden md:block">
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 100 1000"
+              preserveAspectRatio="none"
+              className="overflow-visible"
+            >
+              {/* Dotted guideline */}
+              <path
+                d={curvePath}
+                fill="none"
+                stroke="var(--border-soft)"
+                strokeWidth="0.5"
+                strokeDasharray="1.5 2"
+                opacity="0.6"
+              />
+              {/* Animated glowing path */}
+              <motion.path
+                d={curvePath}
+                fill="none"
+                stroke="var(--stroke-accent)"
+                strokeWidth="1"
+                style={{ pathLength }}
+                filter="url(#glow)"
+              />
+              {/* SVG filter for glow */}
+              <defs>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur
+                    stdDeviation="1.5"
+                    result="coloredBlur"
+                  />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+            </svg>
+          </div>
+
+          {/* STEPS */}
+          <div className="flex flex-col gap-16 md:gap-0">
+            {steps.map((step, index) => (
+              <TimelineItem
+                key={index}
+                step={step}
+                index={index}
+                progress={scrollYProgress}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function TimelineItem({ step, index, progress }: any) {
+  const isLeft = step.side === "left";
+  const threshold = (index + 0.2) / steps.length;
+
+  const opacity = useTransform(progress, [threshold - 0.15, threshold], [0, 1]);
+  const scale = useTransform(progress, [threshold - 0.15, threshold], [0.9, 1]);
+  const xOffset = useTransform(
+    progress,
+    [threshold - 0.15, threshold],
+    [-10, 0]
+  );
+
+  return (
+    <div className="relative flex w-full flex-col md:flex-row items-center justify-center md:h-[280px]">
+      {/* Spacer (left/right) */}
+      <div
+        className={`hidden md:block w-1/2 ${
+          isLeft ? "order-1" : "order-3"
+        }`}
+      />
+
+      {/* Junction dot on the spine */}
+      <div className="absolute left-4 md:left-1/2 top-0 md:top-1/2 z-20 -translate-y-1/2 md:-translate-x-1/2">
+        <motion.div
+          style={{ scale }}
+          className="h-4 w-4 rounded-full bg-[var(--stroke-accent)] shadow-[0_0_15px_var(--stroke-accent)]"
+        />
+      </div>
+
+      {/* Content card */}
+      <motion.div
+        style={{ opacity, scale, x: isLeft ? xOffset : undefined }}
+        className={`w-full md:w-[42%] ml-12 md:ml-0 p-6 md:p-8 panel group relative z-10 border-[0.5px] border-[var(--border-soft)] hover:border-[var(--gold-bright)] transition-all duration-300 ${
+          isLeft
+            ? "md:order-3 md:text-left"
+            : "md:order-1 md:text-right"
+        }`}
+      >
+        <div
+          className={`flex items-center gap-3 mb-3 ${
+            !isLeft && "md:flex-row-reverse"
+          }`}
+        >
+          <span className="font-mono text-xl font-bold text-[var(--gold-bright)] uppercase tracking-wider">
+            0{index + 1}
+          </span>
+          <h3 className="font-heading text-xl md:text-2xl font-bold text-[var(--text-primary)]">
+            {step.title}
+          </h3>
+        </div>
+        <p className="font-body text-sm leading-7 text-[var(--text-secondary)]">
+          {step.text}
+        </p>
+
+        {/* Subtle hover overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--gold-bright)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </motion.div>
+    </div>
   );
 }
 

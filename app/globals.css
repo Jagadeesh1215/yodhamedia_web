@@ -22,6 +22,7 @@
   --radius-md: 14px;
   --radius-lg: 18px;
 
+  --stroke-accent: var(--purple-electric);
   --font-body-stack: var(--font-body), var(--font-alt), system-ui, sans-serif;
 
   --bg-app: var(--off-white);
@@ -48,6 +49,7 @@
     var(--dark-bg) 0%,
     var(--purple-deep) 100%
   );
+  --stroke-accent: var(--gold-bright);
   --bg-band: var(--purple-deep);
   --bg-panel: var(--dark-surface);
   --bg-panel-strong: rgba(18, 13, 46, 0.9);
@@ -116,16 +118,34 @@ body {
 
 @layer components {
   .section {
-    @apply px-5 py-20 md:px-10 md:py-28;
+    padding: 5rem 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding: 7rem 2.5rem;
+    }
   }
 
   .container-wide {
-    @apply mx-auto max-w-[1440px];
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1440px;
   }
 
   .form-field {
-    @apply h-12 rounded-[var(--radius-sm)] border px-4 font-body text-sm outline-none transition;
-    border-color: var(--border-soft);
+    height: 3rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-soft);
+    padding: 0 1rem;
+    font-family: var(--font-body-stack);
+    font-size: 0.875rem;
+    outline: none;
+    transition:
+      background-color 320ms ease,
+      border-color 320ms ease,
+      color 320ms ease,
+      box-shadow 320ms ease;
     background: var(--bg-panel);
     color: var(--text-primary);
   }
@@ -138,23 +158,19 @@ body {
     border-color: var(--gold-warm);
   }
 
-  .heading-light {
-    @apply font-heading text-h2 font-bold;
-    color: var(--text-primary);
-  }
-
+  .heading-light,
   .heading-dark {
-    @apply font-heading text-h2 font-bold;
+    font-family: var(--font-body-stack);
+    font-weight: 700;
+    font-size: 2.25rem;
     color: var(--text-primary);
   }
 
-  .body-light {
-    @apply font-body text-base leading-8;
-    color: var(--text-secondary);
-  }
-
+  .body-light,
   .body-dark {
-    @apply font-body text-base leading-8;
+    font-family: var(--font-body-stack);
+    font-size: 1rem;
+    line-height: 2rem;
     color: var(--text-secondary);
   }
 
