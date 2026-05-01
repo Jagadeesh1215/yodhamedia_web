@@ -1,5 +1,4 @@
 import {
-  AboutSnippet,
   Advantage,
   BlogPreview,
   CTABanner,
@@ -24,7 +23,6 @@ export default function Home() {
       <ProcessSteps />
       <Advantage />
       <StatsSection />
-      <AboutSnippet />
       <IndustriesSection />
       <Testimonials />
       <WhyChoose />
