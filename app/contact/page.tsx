@@ -14,8 +14,14 @@ export default function ContactPage() {
       <div className="container-wide grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <SectionLabel className="justify-start">Contact Us</SectionLabel>
-          <h1 className="font-heading text-h2 font-bold text-[var(--text-primary)]">Let&apos;s Build Your <span className="text-gold-highlight">Digital Growth System</span></h1>
-          <p className="body-dark mt-5">Share your goals and we&apos;ll help you choose the right path across content, ORM, web, ads, and distribution.</p>
+          <h1 className="font-heading text-h2 font-bold text-[var(--text-primary)]">
+            Let&apos;s Build Your{" "}
+            <span className="text-gold-highlight">Digital Growth System</span>
+          </h1>
+          <p className="body-dark mt-5">
+            Share your goals and we&apos;ll help you choose the right path
+            across content, ORM, web, ads, and distribution.
+          </p>
           <div className="mt-8 grid gap-3 font-body text-[var(--text-secondary)]">
             <p>{site.location}</p>
             <p>{site.phone}</p>
@@ -28,14 +34,22 @@ export default function ContactPage() {
             <input required placeholder="Name" className="form-field" />
             <input required placeholder="Phone" className="form-field" />
           </div>
-          <input type="email" placeholder="Email" className="form-field mt-4 w-full" />
+          <input
+            type="email"
+            placeholder="Email"
+            className="form-field mt-4 w-full"
+          />
           <select className="form-field mt-4 w-full">
             <option>Service Interested In</option>
             {services.map((service) => (
               <option key={service.slug}>{service.name}</option>
             ))}
           </select>
-          <textarea placeholder="Message" rows={5} className="form-field mt-4 h-auto w-full resize-none py-4" />
+          <textarea
+            placeholder="Message"
+            rows={5}
+            className="form-field mt-4 h-auto w-full resize-none py-4"
+          />
           <button className="mt-5 h-12 w-full rounded-[var(--radius-sm)] bg-gradient-to-r from-gold-warm to-gold-bright font-heading font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-gold-md">
             Submit Request
           </button>

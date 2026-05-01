@@ -26,7 +26,8 @@ export const blogPosts: BlogPost[] = [
     slug: "hospital-social-media-system",
     category: "Healthcare Marketing",
     title: "Why Hospitals Need a Structured Social Media System",
-    excerpt: "A practical framework for turning inconsistent posting into trusted patient communication.",
+    excerpt:
+      "A practical framework for turning inconsistent posting into trusted patient communication.",
     date: "April 12, 2026",
     readTime: "5 min read",
     icon: "🏥",
@@ -54,7 +55,8 @@ export const blogPosts: BlogPost[] = [
     slug: "google-business-profile-clinic",
     category: "Local SEO & Google Business",
     title: "Google Business Profile Basics for Clinics",
-    excerpt: "How clinics can improve local discovery, ratings, and patient confidence with routine profile care.",
+    excerpt:
+      "How clinics can improve local discovery, ratings, and patient confidence with routine profile care.",
     date: "April 18, 2026",
     readTime: "4 min read",
     icon: "⭐",
@@ -82,7 +84,8 @@ export const blogPosts: BlogPost[] = [
     slug: "ads-for-local-businesses",
     category: "Digital Marketing (Ads)",
     title: "How Local Businesses Should Think About Digital Ads",
-    excerpt: "A simple way to connect ad goals, landing pages, and measurable enquiry quality.",
+    excerpt:
+      "A simple way to connect ad goals, landing pages, and measurable enquiry quality.",
     date: "April 23, 2026",
     readTime: "6 min read",
     icon: "📊",

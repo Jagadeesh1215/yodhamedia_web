@@ -2,7 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, X, Sparkles, TrendingUp, Users, BarChart3, Home, ChevronRight } from "lucide-react";
+import {
+  ChevronDown,
+  Menu,
+  X,
+  Sparkles,
+  TrendingUp,
+  Users,
+  BarChart3,
+  Home,
+  ChevronRight,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { navItems } from "@/lib/constants/navigation";
@@ -16,24 +26,26 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(null);
+  const [expandedMobileItem, setExpandedMobileItem] = useState<string | null>(
+    null,
+  );
   const dropdownTimeout = useRef<NodeJS.Timeout>();
 
   // Generate breadcrumb from pathname
   const generateBreadcrumb = () => {
     const paths = pathname.split("/").filter(Boolean);
     const breadcrumbs = [];
-    
+
     // Add Home
     if (pathname !== "/") {
       breadcrumbs.push({ label: "Home", href: "/" });
     }
-    
+
     // Add current path segments
     let currentPath = "";
     for (const segment of paths) {
       currentPath += `/${segment}`;
-      const navItem = navItems.find(item => item.href === currentPath);
+      const navItem = navItems.find((item) => item.href === currentPath);
       if (navItem) {
         breadcrumbs.push({ label: navItem.label, href: currentPath });
       } else {
@@ -41,7 +53,7 @@ export function Navbar() {
         let found = false;
         for (const item of navItems) {
           if ("dropdown" in item && item.dropdown) {
-            const child = item.dropdown.find(d => d.href === currentPath);
+            const child = item.dropdown.find((d) => d.href === currentPath);
             if (child) {
               breadcrumbs.push({ label: child.label, href: currentPath });
               found = true;
@@ -50,14 +62,16 @@ export function Navbar() {
           }
         }
         if (!found && segment) {
-          breadcrumbs.push({ 
-            label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " "), 
-            href: currentPath 
+          breadcrumbs.push({
+            label:
+              segment.charAt(0).toUpperCase() +
+              segment.slice(1).replace(/-/g, " "),
+            href: currentPath,
           });
         }
       }
     }
-    
+
     return breadcrumbs;
   };
 
@@ -104,14 +118,14 @@ export function Navbar() {
         "fixed left-0 right-0 top-0 z-50 transition-all duration-500",
         scrolled
           ? "border-b border-[var(--border-soft)] bg-[var(--bg-frost)] shadow-[var(--shadow-soft)] backdrop-blur-xl"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
       <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 md:px-10">
         {/* Animated Logo */}
         <Link href="/" className="group relative flex items-center gap-3">
           <div className="absolute -inset-2 rounded-lg bg-gold-warm/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
+
           <div className="relative">
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-gold-warm to-gold-highlight rounded-sm rotate-45"
@@ -152,7 +166,9 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
-            const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+            const active =
+              pathname === item.href ||
+              (item.href !== "/" && pathname.startsWith(item.href));
             const hasDropdown = "dropdown" in item && item.dropdown;
             const isDropdownActive = activeDropdown === item.label;
 
@@ -160,7 +176,9 @@ export function Navbar() {
               <div
                 key={item.href}
                 className="relative"
-                onMouseEnter={() => hasDropdown && handleDropdownEnter(item.label)}
+                onMouseEnter={() =>
+                  hasDropdown && handleDropdownEnter(item.label)
+                }
                 onMouseLeave={handleDropdownLeave}
               >
                 <Link
@@ -169,7 +187,7 @@ export function Navbar() {
                     "relative flex items-center gap-1.5 rounded-lg px-4 py-2.5 font-heading text-sm font-medium transition-all duration-300",
                     active
                       ? "text-gold-warm bg-gold-warm/10"
-                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel-strong)]"
+                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-panel-strong)]",
                   )}
                 >
                   <span className="relative z-10">{item.label}</span>
@@ -181,7 +199,7 @@ export function Navbar() {
                       <ChevronDown className="h-3.5 w-3.5" />
                     </motion.div>
                   )}
-                  
+
                   {active && (
                     <motion.div
                       layoutId="active-nav"
@@ -217,18 +235,27 @@ export function Navbar() {
                                   {child.icon}
                                 </span>
                                 <div>
-                                  <div className="font-medium text-[var(--text-primary)]">{child.label}</div>
-                                  <div className="text-xs text-[var(--text-muted)]">Explore {child.label.toLowerCase()}</div>
+                                  <div className="font-medium text-[var(--text-primary)]">
+                                    {child.label}
+                                  </div>
+                                  <div className="text-xs text-[var(--text-muted)]">
+                                    Explore {child.label.toLowerCase()}
+                                  </div>
                                 </div>
                               </Link>
                             </motion.div>
                           ))}
                         </div>
-                        
+
                         <div className="border-t border-[var(--border-soft)] bg-gold-warm/5 p-3">
                           <div className="flex items-center justify-between text-xs">
-                            <span className="text-[var(--text-muted)]">Need help?</span>
-                            <Link href="/contact" className="text-gold-warm hover:underline">
+                            <span className="text-[var(--text-muted)]">
+                              Need help?
+                            </span>
+                            <Link
+                              href="/contact"
+                              className="text-gold-warm hover:underline"
+                            >
                               Contact us →
                             </Link>
                           </div>
@@ -288,26 +315,26 @@ export function Navbar() {
             {/* Mobile Menu Header */}
             <div className="relative flex items-center justify-between px-6 py-5">
               <div className="relative">
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-gold-warm to-gold-highlight rounded-sm rotate-45"
-              animate={{ rotate: [45, 405] }}
-              transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
-            />
-            <motion.div
-              className="absolute inset-[2px] bg-[var(--bg-app)] rounded-sm rotate-45"
-              animate={{ rotate: [45, 405] }}
-              transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
-            />
-            <motion.span
-              className="relative flex h-10 w-10 items-center justify-center font-display text-lg font-bold text-gold-warm"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", delay: 0.3 }}
-            >
-              Y
-            </motion.span>
-          </div>
-              
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-gold-warm to-gold-highlight rounded-sm rotate-45"
+                  animate={{ rotate: [45, 405] }}
+                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                />
+                <motion.div
+                  className="absolute inset-[2px] bg-[var(--bg-app)] rounded-sm rotate-45"
+                  animate={{ rotate: [45, 405] }}
+                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                />
+                <motion.span
+                  className="relative flex h-10 w-10 items-center justify-center font-body text-lg font-bold text-gold-warm"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", delay: 0.3 }}
+                >
+                  Y
+                </motion.span>
+              </div>
+
               <div className="flex items-center gap-3">
                 <ThemeToggle />
                 <motion.button
@@ -326,7 +353,9 @@ export function Navbar() {
                 {navItems.map((item, index) => {
                   const hasDropdown = "dropdown" in item && item.dropdown;
                   const isExpanded = expandedMobileItem === item.href;
-                  const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                  const isActive =
+                    pathname === item.href ||
+                    (item.href !== "/" && pathname.startsWith(item.href));
 
                   return (
                     <motion.div
@@ -341,10 +370,10 @@ export function Navbar() {
                           <button
                             onClick={() => toggleMobileDropdown(item.href)}
                             className={cn(
-                              "flex w-full items-center justify-between rounded-2xl px-4 py-4 font-display text-2xl font-bold transition-all",
+                              "flex w-full items-center justify-between rounded-2xl px-4 py-4 font-body text-xl font-normal transition-all",
                               isActive
                                 ? "text-gold-warm bg-gold-warm/10"
-                                : "text-[var(--text-primary)] hover:bg-gold-warm/10"
+                                : "text-[var(--text-primary)] hover:bg-gold-warm/10",
                             )}
                           >
                             <span>{item.label}</span>
@@ -376,16 +405,20 @@ export function Navbar() {
                                         href={child.href}
                                         onClick={() => setOpen(false)}
                                         className={cn(
-                                          "flex items-center gap-4 rounded-xl px-4 py-3 font-body text-base transition-all hover:bg-gold-warm/10 hover:translate-x-2",
+                                          "flex items-center gap-4 rounded-xl px-4 py-3  text-base transition-all hover:bg-gold-warm/10 hover:translate-x-2",
                                           pathname === child.href
                                             ? "text-gold-warm bg-gold-warm/5"
-                                            : "text-[var(--text-secondary)]"
+                                            : "text-[var(--text-secondary)]",
                                         )}
                                       >
-                                        <span className="text-gold-warm">{child.icon}</span>
+                                        <span className="text-gold-warm">
+                                          {child.icon}
+                                        </span>
                                         {child.label}
                                         {pathname === child.href && (
-                                          <span className="ml-auto text-[10px] text-gold-warm">● Active</span>
+                                          <span className="ml-auto text-[10px] text-gold-warm">
+                                            ● Active
+                                          </span>
                                         )}
                                       </Link>
                                     </motion.div>
@@ -398,17 +431,19 @@ export function Navbar() {
                       ) : (
                         <Link
                           href={item.href}
-                                          onClick={() => setOpen(false)}
+                          onClick={() => setOpen(false)}
                           className={cn(
-                            "flex items-center rounded-2xl px-4 py-4 font-display text-2xl font-bold transition-all hover:bg-gold-warm/10 hover:translate-x-2",
+                            "flex items-center rounded-2xl px-4 py-4 font-body text-xl font-normal transition-all hover:bg-gold-warm/10 hover:translate-x-2",
                             isActive
                               ? "text-gold-warm bg-gold-warm/10"
-                              : "text-[var(--text-primary)]"
+                              : "text-[var(--text-primary)]",
                           )}
                         >
                           {item.label}
                           {isActive && (
-                            <span className="ml-auto text-sm text-gold-warm">← Current</span>
+                            <span className="ml-auto text-sm text-gold-warm">
+                              ← Current
+                            </span>
                           )}
                         </Link>
                       )}
@@ -427,7 +462,7 @@ export function Navbar() {
                 <div className="text-center">
                   <ConsultationModal triggerClassName="w-full" />
                 </div>
-                
+
                 <p className="text-center text-xs text-[var(--text-muted)]">
                   © 2024 YodhaMedia LLP. All rights reserved.
                 </p>

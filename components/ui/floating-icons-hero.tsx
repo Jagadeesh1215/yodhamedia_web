@@ -33,8 +33,7 @@ export type DemoIcon = {
   glowColor: string;
 };
 
-interface FloatingIconsHeroProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface FloatingIconsHeroProps extends React.HTMLAttributes<HTMLDivElement> {
   icons: DemoIcon[];
   children?: React.ReactNode;
 }
@@ -127,21 +126,27 @@ const IconMake = (props: React.SVGProps<SVGSVGElement>) => (
 const IconPremiere = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#2D0064" />
-    <text x="8" y="32" fontSize="22" fontWeight="900" fill="#9999FF">Pr</text>
+    <text x="8" y="32" fontSize="22" fontWeight="900" fill="#9999FF">
+      Pr
+    </text>
   </svg>
 );
 
 const IconAfterEffects = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#1A005C" />
-    <text x="7" y="32" fontSize="22" fontWeight="900" fill="#9999FF">Ae</text>
+    <text x="7" y="32" fontSize="22" fontWeight="900" fill="#9999FF">
+      Ae
+    </text>
   </svg>
 );
 
 const IconWWW = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#1D4ED8" />
-    <text x="5" y="32" fontSize="16" fontWeight="900" fill="white">WWW</text>
+    <text x="5" y="32" fontSize="16" fontWeight="900" fill="white">
+      WWW
+    </text>
   </svg>
 );
 
@@ -439,7 +444,12 @@ function DesktopIcon({
           boxShadow: `0 0 20px ${iconData.glowColor}, 0 8px 20px rgba(0,0,0,0.22)`,
         }}
         animate={{ y: floatY, x: floatX, rotate: floatRot }}
-        transition={{ duration: dur, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+        transition={{
+          duration: dur,
+          repeat: Infinity,
+          repeatType: "mirror",
+          ease: "easeInOut",
+        }}
         whileHover={{ scale: 1.12 }}
       >
         <iconData.icon style={{ width: sz.inner, height: sz.inner }} />
@@ -461,7 +471,10 @@ function TabletIconRails({ icons }: { icons: DemoIcon[] }) {
           <div
             key={icon.id}
             className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 backdrop-blur-md"
-            style={{ background: icon.bgColor, boxShadow: `0 0 14px ${icon.glowColor}` }}
+            style={{
+              background: icon.bgColor,
+              boxShadow: `0 0 14px ${icon.glowColor}`,
+            }}
           >
             <icon.icon className="h-5 w-5" />
           </div>
@@ -473,7 +486,10 @@ function TabletIconRails({ icons }: { icons: DemoIcon[] }) {
           <div
             key={icon.id}
             className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 backdrop-blur-md"
-            style={{ background: icon.bgColor, boxShadow: `0 0 14px ${icon.glowColor}` }}
+            style={{
+              background: icon.bgColor,
+              boxShadow: `0 0 14px ${icon.glowColor}`,
+            }}
           >
             <icon.icon className="h-5 w-5" />
           </div>
@@ -535,8 +551,16 @@ const MobileFloatingIcons = ({ icons }: { icons: DemoIcon[] }) => {
               opacity: { delay: i * 0.06, duration: 0.35 },
               scale: { delay: i * 0.06, duration: 0.35 },
               y: { duration: 4 + i * 0.3, repeat: Infinity, ease: "easeInOut" },
-              x: { duration: 4.8 + i * 0.25, repeat: Infinity, ease: "easeInOut" },
-              rotate: { duration: 5.2 + i * 0.2, repeat: Infinity, ease: "easeInOut" },
+              x: {
+                duration: 4.8 + i * 0.25,
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
+              rotate: {
+                duration: 5.2 + i * 0.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              },
             }}
           >
             <div
@@ -562,52 +586,53 @@ const MobileFloatingIcons = ({ icons }: { icons: DemoIcon[] }) => {
 
 /* ---------------- wrapper ---------------- */
 
-export const FloatingIconsHero = React.forwardRef<HTMLDivElement, FloatingIconsHeroProps>(
-  ({ className, icons, children, ...props }, ref) => {
-    const mouseX = React.useRef(0);
-    const mouseY = React.useRef(0);
+export const FloatingIconsHero = React.forwardRef<
+  HTMLDivElement,
+  FloatingIconsHeroProps
+>(({ className, icons, children, ...props }, ref) => {
+  const mouseX = React.useRef(0);
+  const mouseY = React.useRef(0);
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      mouseX.current = e.clientX;
-      mouseY.current = e.clientY;
-    };
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    mouseX.current = e.clientX;
+    mouseY.current = e.clientY;
+  };
 
-    return (
-      <div
-        ref={ref}
-        onMouseMove={handleMouseMove}
-        className={cn(
-          "relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden",
-          className
-        )}
-        {...props}
-      >
-        {/* Desktop floating icons */}
-        <div className="absolute inset-0 pointer-events-none hidden lg:block">
-          {icons.map((icon, i) => (
-            <DesktopIcon
-              key={icon.id}
-              iconData={icon}
-              index={i}
-              mouseX={mouseX}
-              mouseY={mouseY}
-            />
-          ))}
-        </div>
-
-        {/* Tablet side rails */}
-        <TabletIconRails icons={icons} />
-
-        {/* Mobile floating icons */}
-        <MobileFloatingIcons icons={icons} />
-
-        {/* Content */}
-        <div className="relative z-10 w-full flex flex-col items-center">
-          {children}
-        </div>
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      className={cn(
+        "relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden",
+        className,
+      )}
+      {...props}
+    >
+      {/* Desktop floating icons */}
+      <div className="absolute inset-0 pointer-events-none hidden lg:block">
+        {icons.map((icon, i) => (
+          <DesktopIcon
+            key={icon.id}
+            iconData={icon}
+            index={i}
+            mouseX={mouseX}
+            mouseY={mouseY}
+          />
+        ))}
       </div>
-    );
-  }
-);
+
+      {/* Tablet side rails */}
+      <TabletIconRails icons={icons} />
+
+      {/* Mobile floating icons */}
+      <MobileFloatingIcons icons={icons} />
+
+      {/* Content */}
+      <div className="relative z-10 w-full flex flex-col items-center">
+        {children}
+      </div>
+    </div>
+  );
+});
 
 FloatingIconsHero.displayName = "FloatingIconsHero";

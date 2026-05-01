@@ -38,7 +38,7 @@ export function Button({
     variant === "ghost" &&
       "text-gold-warm hover:text-gold-bright hover:bg-gold-pale/30",
 
-    className
+    className,
   );
 
   const content = (
@@ -53,7 +53,7 @@ export function Button({
   // ✅ asChild (for shadcn / floating hero)
   if (asChild) {
     return (
-      <Comp className={classes} {...props as any}>
+      <Comp className={classes} {...(props as any)}>
         {content}
       </Comp>
     );

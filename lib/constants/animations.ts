@@ -10,7 +10,11 @@ export const fadeUp = {
 
 export const fadeIn = {
   hidden: { opacity: 0, filter: "blur(8px)" },
-  visible: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } },
+  visible: {
+    opacity: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
 };
 
 export const staggerContainer = {

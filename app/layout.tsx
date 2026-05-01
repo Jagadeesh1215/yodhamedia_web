@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Work_Sans, Manrope, Barlow_Condensed, Cormorant_Garamond, JetBrains_Mono, Outfit } from "next/font/google";
+import {
+  Work_Sans,
+  Manrope,
+  Barlow_Condensed,
+  Cormorant_Garamond,
+  JetBrains_Mono,
+  Outfit,
+} from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
@@ -20,7 +27,6 @@ const altBody = Manrope({
   variable: "--font-alt",
   display: "swap",
 });
-
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -73,11 +79,15 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
-  lang="en"
-  className={`
+      lang="en"
+      className={`
     ${display.variable}
     ${heading.variable}
     ${body.variable}
@@ -85,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     ${label.variable}
     ${mono.variable}
   `}
->
+    >
       <body>
         <Providers>
           <Navbar />
@@ -93,7 +103,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <WhatsAppButton />
         </Providers>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   );
