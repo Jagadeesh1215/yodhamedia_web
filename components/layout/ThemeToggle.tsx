@@ -15,7 +15,10 @@ export function ThemeToggle({ className }: { className?: string }) {
     return (
       <button
         aria-label="Toggle theme"
-        className={cn("flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] border", className)}
+        className={cn(
+          "flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] border",
+          className,
+        )}
       >
         <Sun className="h-4 w-4" />
       </button>
@@ -33,7 +36,11 @@ export function ThemeToggle({ className }: { className?: string }) {
         className,
       )}
     >
-      {dark ? <Sun className="h-4 w-4 text-gold-highlight" /> : <Moon className="h-4 w-4 text-purple-vivid" />}
+      {dark ? (
+        <Sun className="h-4 w-4 text-gold-highlight" />
+      ) : (
+        <Moon className="h-4 w-4 text-purple-vivid" />
+      )}
     </button>
   );
 }

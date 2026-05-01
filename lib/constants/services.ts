@@ -58,8 +58,19 @@ export const services: Service[] = [
       "Professional video, reels, flyers, captions, and platform management.",
       "Consistent publishing aligned with patient and customer trust.",
     ],
-    process: ["Strategy mapping", "Calendar planning", "Content production", "Approval and posting", "Monthly optimization"],
-    benefits: ["Consistent brand presence", "Higher enquiry readiness", "Professional visual identity", "Reduced team workload"],
+    process: [
+      "Strategy mapping",
+      "Calendar planning",
+      "Content production",
+      "Approval and posting",
+      "Monthly optimization",
+    ],
+    benefits: [
+      "Consistent brand presence",
+      "Higher enquiry readiness",
+      "Professional visual identity",
+      "Reduced team workload",
+    ],
   },
   {
     slug: "orm",
@@ -70,7 +81,13 @@ export const services: Service[] = [
     hero: "Build Trust. Improve Reputation. Grow Your Business.",
     description:
       "Google Business optimization, reviews management, and local SEO to strengthen your digital credibility.",
-    deliverables: ["Google Business Profile", "Review management", "Local SEO", "Regular posts", "Digital visiting cards"],
+    deliverables: [
+      "Google Business Profile",
+      "Review management",
+      "Local SEO",
+      "Regular posts",
+      "Digital visiting cards",
+    ],
     bestFor: "Hospitals, doctors, clinics, and local service brands",
     challenge: [
       "Low ratings and incomplete profiles reduce customer confidence.",
@@ -82,8 +99,19 @@ export const services: Service[] = [
       "Create a structured review and response system.",
       "Use local SEO posts and digital cards to support discovery.",
     ],
-    process: ["Profile audit", "Listing optimization", "Review workflow setup", "Local content publishing", "Reputation reporting"],
-    benefits: ["Stronger trust signals", "Better local discovery", "Improved rating hygiene", "Higher appointment intent"],
+    process: [
+      "Profile audit",
+      "Listing optimization",
+      "Review workflow setup",
+      "Local content publishing",
+      "Reputation reporting",
+    ],
+    benefits: [
+      "Stronger trust signals",
+      "Better local discovery",
+      "Improved rating hygiene",
+      "Higher appointment intent",
+    ],
   },
   {
     slug: "branding-partner",
@@ -94,7 +122,14 @@ export const services: Service[] = [
     hero: "Professional Branding & Print Design Solutions",
     description:
       "Professional design solutions for all print and offline branding, including banners, hoardings, and promotional materials.",
-    deliverables: ["Banners", "Hoardings", "Canopy tents", "Posters", "Promotional materials", "Complete print solutions"],
+    deliverables: [
+      "Banners",
+      "Hoardings",
+      "Canopy tents",
+      "Posters",
+      "Promotional materials",
+      "Complete print solutions",
+    ],
     bestFor: "Clinics, campaigns, product sellers, and local launches",
     challenge: [
       "Offline branding often looks disconnected from digital identity.",
@@ -106,8 +141,19 @@ export const services: Service[] = [
       "Prepare print-ready material for banners, hoardings, and promos.",
       "Align offline presence with digital marketing campaigns.",
     ],
-    process: ["Brand audit", "Visual direction", "Design production", "Print-ready handoff", "Campaign support"],
-    benefits: ["Consistent recognition", "Premium public presence", "Faster campaign rollout", "Better launch visibility"],
+    process: [
+      "Brand audit",
+      "Visual direction",
+      "Design production",
+      "Print-ready handoff",
+      "Campaign support",
+    ],
+    benefits: [
+      "Consistent recognition",
+      "Premium public presence",
+      "Faster campaign rollout",
+      "Better launch visibility",
+    ],
   },
   {
     slug: "web-designing",
@@ -136,8 +182,19 @@ export const services: Service[] = [
       "Build responsive layouts for mobile-first visitors.",
       "Create scalable, SEO-friendly structures for future growth.",
     ],
-    process: ["Discovery", "Wireframe and content", "UI development", "Responsive QA", "Launch support"],
-    benefits: ["Higher credibility", "Better mobile experience", "Search-ready structure", "Easy expansion"],
+    process: [
+      "Discovery",
+      "Wireframe and content",
+      "UI development",
+      "Responsive QA",
+      "Launch support",
+    ],
+    benefits: [
+      "Higher credibility",
+      "Better mobile experience",
+      "Search-ready structure",
+      "Easy expansion",
+    ],
   },
   {
     slug: "digital-marketing",
@@ -148,8 +205,15 @@ export const services: Service[] = [
     hero: "Performance-Driven Advertising Solutions",
     description:
       "Data-driven advertising strategies across Meta and Google platforms to generate real, measurable business results.",
-    deliverables: ["Meta Ads", "Google Ads", "Strategy planning", "Campaign optimization", "Performance tracking & reporting"],
-    bestFor: "Lead generation, launches, appointment campaigns, and growth pushes",
+    deliverables: [
+      "Meta Ads",
+      "Google Ads",
+      "Strategy planning",
+      "Campaign optimization",
+      "Performance tracking & reporting",
+    ],
+    bestFor:
+      "Lead generation, launches, appointment campaigns, and growth pushes",
     challenge: [
       "Ad spends leak when targeting, creatives, and landing pages are disconnected.",
       "Campaigns without measurement cannot be improved reliably.",
@@ -160,8 +224,19 @@ export const services: Service[] = [
       "Track performance indicators clearly and consistently.",
       "Optimize creative, audience, and budget allocation over time.",
     ],
-    process: ["Goal setting", "Campaign architecture", "Creative launch", "Performance tracking", "Optimization cycles"],
-    benefits: ["Measured lead flow", "Sharper spend control", "Clear reporting", "Scalable campaign learning"],
+    process: [
+      "Goal setting",
+      "Campaign architecture",
+      "Creative launch",
+      "Performance tracking",
+      "Optimization cycles",
+    ],
+    benefits: [
+      "Measured lead flow",
+      "Sharper spend control",
+      "Clear reporting",
+      "Scalable campaign learning",
+    ],
   },
   {
     slug: "influencer-marketing",
@@ -189,8 +264,19 @@ export const services: Service[] = [
       "Handle negotiation, campaign coordination, and publishing timelines.",
       "Optimize reach against budget and local audience goals.",
     ],
-    process: ["Audience mapping", "Creator shortlisting", "Budget negotiation", "Campaign execution", "Reach reporting"],
-    benefits: ["Authentic amplification", "Local audience reach", "Simpler creator management", "Budget-conscious promotion"],
+    process: [
+      "Audience mapping",
+      "Creator shortlisting",
+      "Budget negotiation",
+      "Campaign execution",
+      "Reach reporting",
+    ],
+    benefits: [
+      "Authentic amplification",
+      "Local audience reach",
+      "Simpler creator management",
+      "Budget-conscious promotion",
+    ],
   },
 ];
 

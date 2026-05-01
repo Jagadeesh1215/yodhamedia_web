@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-export function AnimatedCounter({ value, suffix = "" }: { value: number | string; suffix?: string }) {
+export function AnimatedCounter({
+  value,
+  suffix = "",
+}: {
+  value: number | string;
+  suffix?: string;
+}) {
   const [display, setDisplay] = useState(typeof value === "number" ? 0 : value);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.35 });
 

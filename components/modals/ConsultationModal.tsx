@@ -6,7 +6,11 @@ import { useState } from "react";
 import { services } from "@/lib/constants/services";
 import { Button } from "@/components/ui/Button";
 
-export function ConsultationModal({ triggerClassName }: { triggerClassName?: string }) {
+export function ConsultationModal({
+  triggerClassName,
+}: {
+  triggerClassName?: string;
+}) {
   const [sent, setSent] = useState(false);
 
   return (
@@ -25,14 +29,21 @@ export function ConsultationModal({ triggerClassName }: { triggerClassName?: str
               <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-gold-warm text-white">
                 <Check className="h-8 w-8" />
               </div>
-              <Dialog.Title className="font-heading text-2xl font-bold text-[var(--text-primary)]">Request received</Dialog.Title>
-              <p className="mt-3 font-body text-[var(--text-secondary)]">We&apos;ll contact you within 24 hours.</p>
+              <Dialog.Title className="font-heading text-2xl font-bold text-[var(--text-primary)]">
+                Request received
+              </Dialog.Title>
+              <p className="mt-3 font-body text-[var(--text-secondary)]">
+                We&apos;ll contact you within 24 hours.
+              </p>
             </div>
           ) : (
             <>
-              <Dialog.Title className="font-heading text-2xl font-bold text-[var(--text-primary)]">Book a Consultation</Dialog.Title>
+              <Dialog.Title className="font-heading text-2xl font-bold text-[var(--text-primary)]">
+                Book a Consultation
+              </Dialog.Title>
               <Dialog.Description className="mt-2 font-body text-sm leading-7 text-[var(--text-secondary)]">
-                Tell us what you want to grow. We&apos;ll map the right digital system for you.
+                Tell us what you want to grow. We&apos;ll map the right digital
+                system for you.
               </Dialog.Description>
               <form
                 className="mt-6 grid gap-4"
@@ -43,14 +54,22 @@ export function ConsultationModal({ triggerClassName }: { triggerClassName?: str
               >
                 <input required placeholder="Name" className="form-field" />
                 <input required placeholder="Phone" className="form-field" />
-                <input type="email" placeholder="Email" className="form-field" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="form-field"
+                />
                 <select className="form-field">
                   <option>Service Interested In</option>
                   {services.map((service) => (
                     <option key={service.slug}>{service.name}</option>
                   ))}
                 </select>
-                <textarea placeholder="Message" rows={4} className="form-field resize-none" />
+                <textarea
+                  placeholder="Message"
+                  rows={4}
+                  className="form-field resize-none"
+                />
                 <button className="mt-2 h-12 rounded-[var(--radius-sm)] bg-gradient-to-r from-gold-warm to-gold-bright font-heading font-semibold text-white transition hover:-translate-y-0.5 hover:shadow-gold-md">
                   Submit Request
                 </button>

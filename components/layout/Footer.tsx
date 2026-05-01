@@ -14,13 +14,18 @@ export function Footer() {
               Y
             </span>
             <div>
-              <p className="font-heading text-lg font-bold text-[var(--text-primary)]">YodhaMedia LLP</p>
-              <p className="font-label text-label uppercase text-gold-warm">Digital Growth Systems</p>
+              <p className="font-heading text-lg font-bold text-[var(--text-primary)]">
+                YodhaMedia LLP
+              </p>
+              <p className="font-label text-label uppercase text-gold-warm">
+                Digital Growth Systems
+              </p>
             </div>
           </div>
           <p className="mt-5 max-w-sm font-body text-sm leading-7 text-[var(--text-secondary)]">
-            Helping hospitals, doctors, and businesses build strong online presence through structured content,
-            marketing, and distribution systems.
+            Helping hospitals, doctors, and businesses build strong online
+            presence through structured content, marketing, and distribution
+            systems.
           </p>
           <div className="mt-6 flex gap-3">
             {[Facebook, Instagram, Linkedin, Youtube].map((Icon, index) => (
@@ -34,10 +39,24 @@ export function Footer() {
             ))}
           </div>
         </div>
-        <FooterColumn title="Quick Links" links={[{ label: "Home", href: "/" }, ...navItems.map(({ label, href }) => ({ label, href }))]} />
-        <FooterColumn title="Our Services" links={services.map((service) => ({ label: service.name, href: `/services/${service.slug}` }))} />
+        <FooterColumn
+          title="Quick Links"
+          links={[
+            { label: "Home", href: "/" },
+            ...navItems.map(({ label, href }) => ({ label, href })),
+          ]}
+        />
+        <FooterColumn
+          title="Our Services"
+          links={services.map((service) => ({
+            label: service.name,
+            href: `/services/${service.slug}`,
+          }))}
+        />
         <div>
-          <h3 className="font-label text-label uppercase text-gold-warm">Contact Us</h3>
+          <h3 className="font-label text-label uppercase text-gold-warm">
+            Contact Us
+          </h3>
           <div className="mt-5 grid gap-3 font-body text-sm text-[var(--text-secondary)]">
             <p>{site.location}</p>
             <p>{site.phone}</p>
@@ -56,13 +75,25 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
   return (
     <div>
-      <h3 className="font-label text-label uppercase text-gold-warm">{title}</h3>
+      <h3 className="font-label text-label uppercase text-gold-warm">
+        {title}
+      </h3>
       <div className="mt-5 grid gap-3">
         {links.map((link) => (
-          <Link key={link.href} href={link.href} className="font-body text-sm text-[var(--text-secondary)] transition hover:text-gold-highlight">
+          <Link
+            key={link.href}
+            href={link.href}
+            className="font-body text-sm text-[var(--text-secondary)] transition hover:text-gold-highlight"
+          >
             {link.label}
           </Link>
         ))}
