@@ -1,27 +1,64 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { navItems } from "@/lib/constants/navigation";
 import { services } from "@/lib/constants/services";
 import { site } from "@/lib/constants/site";
+import { motion } from "framer-motion";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="surface-band border-t border-[var(--border-soft)]">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 md:grid-cols-2 md:px-10 lg:grid-cols-4">
         <div>
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] bg-gradient-to-br from-purple-vivid to-gold-warm font-heading text-xl font-bold text-white">
-              Y
-            </span>
-            <div>
-              <p className="font-heading text-lg font-bold text-[var(--text-primary)]">
-                YodhaMedia LLP
-              </p>
-              <p className="font-label text-label uppercase text-gold-warm">
-                Digital Growth Systems
-              </p>
+          {/* Animated Logo */}
+          <Link href="/" className="group relative flex items-center gap-3">
+            <div className="absolute -inset-2 rounded-lg bg-gold-warm/20 blur-xl opacity-0 transition-opacity duration-500" />
+
+            <div className="relative">
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-gold-warm to-gold-highlight rounded-sm rotate-45"
+                animate={{ rotate: [45, 405] }}
+                transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute inset-[2px] bg-[var(--bg-app)] rounded-sm rotate-45"
+                animate={{ rotate: [45, 405] }}
+                transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+              />
+              <motion.span
+                className="relative flex h-10 w-10 items-center justify-center font-display text-lg font-bold text-gold-warm"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: 0.3 }}
+              >
+                Y
+              </motion.span>
             </div>
-          </div>
+
+            <div className="overflow-hidden">
+              <motion.div
+                initial={{ y: 50 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <span className="font-display text-xl font-bold tracking-widest text-ghost group-hover:text-gold transition-colors duration-300">
+                  YODHA
+                </span>
+                <span className="block font-heading text-[11px] tracking-[0.3em] text-gold-warm/80 -mt-1">
+                  MEDIA
+                </span>
+              </motion.div>
+            </div>
+          </Link>
           <p className="mt-5 max-w-sm font-body text-sm leading-7 text-[var(--text-secondary)]">
             Helping hospitals, doctors, and businesses build strong online
             presence through structured content, marketing, and distribution

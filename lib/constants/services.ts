@@ -1,9 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   BadgeCheck,
-  BarChart3,
-  Brush,
-  Globe2,
+  Handshake,
   Megaphone,
   MonitorSmartphone,
   Share2,
@@ -115,7 +113,7 @@ export const services: Service[] = [
   },
   {
     slug: "branding-partner",
-    icon: Brush,
+    icon: Handshake,
     emoji: "🎨",
     name: "Branding Partner",
     category: "Print & Offline Identity",
@@ -157,7 +155,7 @@ export const services: Service[] = [
   },
   {
     slug: "web-designing",
-    icon: Globe2,
+    icon: MonitorSmartphone,
     emoji: "💻",
     name: "Web Designing",
     category: "Website & UX",
@@ -198,7 +196,7 @@ export const services: Service[] = [
   },
   {
     slug: "digital-marketing",
-    icon: BarChart3,
+    icon: Megaphone,
     emoji: "📊",
     name: "Digital Marketing",
     category: "Ads & Performance",

@@ -1,3 +1,12 @@
+import {
+  Stethoscope,
+  PlusSquare,
+  UserCheck,
+  Briefcase,
+  ShoppingBag,
+  MapPin,
+} from "lucide-react";
+
 export const site = {
   name: "YodhaMedia LLP",
   phone: "+91 98765 43210",
@@ -18,12 +27,32 @@ export const stats = [
 ] as const;
 
 export const industries = [
-  { icon: "H", label: "Hospitals" },
-  { icon: "C", label: "Clinics" },
-  { icon: "P", label: "Professionals" },
-  { icon: "S", label: "Service Businesses" },
-  { icon: "B", label: "Product Brands" },
-  { icon: "L", label: "Local Businesses" },
+  {
+    icon: Stethoscope,
+    label: "Hospitals",
+    desc: "Digital systems for healthcare.",
+  },
+  {
+    icon: PlusSquare,
+    label: "Clinics",
+    desc: "Specialized medical practices.",
+  },
+  {
+    icon: UserCheck,
+    label: "Professionals",
+    desc: "Personal branding for experts.",
+  },
+  {
+    icon: Briefcase,
+    label: "Service Businesses",
+    desc: "Lead gen for agencies.",
+  },
+  {
+    icon: ShoppingBag,
+    label: "Product Brands",
+    desc: "E-commerce growth engine.",
+  },
+  { icon: MapPin, label: "Local Businesses", desc: "Dominating local search." },
 ];
 
 export const jsonLd = {

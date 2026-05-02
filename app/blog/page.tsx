@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { BlogTabs } from "@/components/sections/BlogTabs";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { blogPosts } from "@/lib/constants/blog";
+import { getPublishedBlogPosts } from "@/lib/blog/store";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -9,8 +11,14 @@ export const metadata: Metadata = {
     "Digital growth insights for healthcare, local businesses, social media, ORM, ads, and web strategy.",
 };
 
-export default function BlogPage() {
-  const featured = blogPosts[0];
+export const dynamic = "force-dynamic";
+
+export default async function BlogPage() {
+  const posts = await getPublishedBlogPosts();
+  const featured = posts[0];
+
+  if (!featured) notFound();
+
   return (
     <section className="section surface-band pt-32">
       <div className="container-wide">
@@ -26,8 +34,20 @@ export default function BlogPage() {
           </p>
         </div>
         <div className="panel mt-12 grid overflow-hidden lg:grid-cols-2">
-          <div className="flex min-h-[320px] items-center justify-center bg-gradient-to-br from-purple-deep to-purple-vivid text-8xl">
-            {featured.icon}
+          <div className="relative min-h-[320px] overflow-hidden bg-gradient-to-br from-purple-deep to-purple-vivid text-8xl">
+            {featured.coverImage ? (
+              <Image
+                src={featured.coverImage}
+                alt={featured.title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                {featured.icon}
+              </div>
+            )}
           </div>
           <div className="p-8 lg:p-10">
             <span className="rounded-full bg-gold-warm px-3 py-1 font-label text-[11px] uppercase tracking-wider text-white">
@@ -42,7 +62,7 @@ export default function BlogPage() {
             </p>
           </div>
         </div>
-        <BlogTabs />
+        <BlogTabs posts={posts} />
       </div>
     </section>
   );

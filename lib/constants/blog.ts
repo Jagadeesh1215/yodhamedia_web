@@ -1,25 +1,7 @@
-export type BlogPost = {
-  slug: string;
-  category: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  icon: string;
-  tags: string[];
-  takeaway: string;
-  content: { heading: string; body: string[] }[];
-};
+import type { BlogPost } from "@/lib/blog/types";
+import { blogCategories } from "@/lib/blog/types";
 
-export const categories = [
-  "All",
-  "Healthcare Marketing",
-  "Social Media Strategy",
-  "Local SEO & Google Business",
-  "Digital Marketing (Ads)",
-  "Influencer Marketing",
-  "Website & Branding",
-];
+export const categories = blogCategories;
 
 export const blogPosts: BlogPost[] = [
   {

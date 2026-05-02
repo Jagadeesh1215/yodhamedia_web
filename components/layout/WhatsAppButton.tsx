@@ -1,7 +1,16 @@
+"use client";
+
 import { MessageCircle } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/constants/site";
 
 export function WhatsAppButton() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <a
       href={`https://wa.me/${site.whatsapp}`}

@@ -12,8 +12,13 @@ import {
   WhoWeHelp,
   WhyChoose,
 } from "@/components/sections/HomeSections";
+import { getPublishedBlogPosts } from "@/lib/blog/store";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const blogPosts = await getPublishedBlogPosts();
+
   return (
     <>
       <HeroSection />
@@ -26,7 +31,7 @@ export default function Home() {
       <IndustriesSection />
       <Testimonials />
       <WhyChoose />
-      <BlogPreview />
+      <BlogPreview posts={blogPosts} />
       <CTABanner />
     </>
   );

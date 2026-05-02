@@ -1,22 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
-  BadgeCheck,
+  ArrowUpRight,
   BarChart3,
   BriefcaseBusiness,
   Check,
-  ChevronLeft,
-  ChevronRight,
   Cpu,
   Hospital,
-  LineChart,
+  Layers,
   Minus,
   Plus,
   Quote,
   Radio,
+  Repeat,
   Scale,
   ShieldCheck,
   Sparkles,
@@ -24,13 +24,12 @@ import {
   Stethoscope,
   Store,
   Target,
+  TrendingUp,
   Zap,
 } from "lucide-react";
 import {
   AnimatePresence,
   motion,
-  useAnimation,
-  useInView,
   useScroll,
   useSpring,
   useTransform,
@@ -40,16 +39,13 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { blogPosts } from "@/lib/constants/blog";
+import type { BlogPost } from "@/lib/blog/types";
 import { industries, stats } from "@/lib/constants/site";
 import { services } from "@/lib/constants/services";
 import { ConsultationModal } from "@/components/modals/ConsultationModal";
 import { FloatingIconsHero } from "@/components/ui/floating-icons-hero";
 import { demoIcons } from "@/components/ui/floating-icons-hero";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback } from "../ui/avatar";
-import { Separator } from "@radix-ui/react-separator";
 
 export function HeroSection() {
   return (
@@ -739,63 +735,54 @@ export function StatsSection() {
 export function IndustriesSection() {
   return (
     <section className="section relative overflow-hidden bg-[var(--purple-deep)] py-20 md:py-32">
-      {/* Background Texture - Cleaned up opacity */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none" />
+      <div className="container-wide relative z-10">
+        {/* We keep your SectionHeading here */}
+        <div className="text-center">
+          <SectionHeading
+            label="Industries We Serve"
+            title="Designed for Trust-Heavy"
+            accent="Growth Markets"
+            darkText
+          />
+        </div>
 
-      <div className="container-wide relative z-10 text-center">
-        <SectionHeading
-          label="Industries We Serve"
-          title="Designed for Trust-Heavy"
-          accent="Growth Markets"
-          darkText
-        />
-
-        <div className="mt-16 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-6">
+        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-4">
           {industries.map((industry, idx) => (
             <motion.div
               key={industry.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -6 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              className="group relative"
+              transition={{ delay: idx * 0.1, duration: 0.3 }}
+              className="group relative rounded-xl bg-zinc-900/50 border border-zinc-800 p-5 hover:border-gold-warm/40 hover:bg-zinc-800 transition-all duration-200"
             >
-              {/* THE CARD */}
-              <div className="relative flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-gradient-to-b from-white/[0.08] to-transparent p-8 transition-all duration-500 hover:border-[var(--gold-bright)]/30 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
-                {/* ICON BOX: Treated as a Monogram */}
-                <div className="relative mb-6 flex h-16 w-16 items-center justify-center">
-                  {/* The Background Shape (Gem Cut) */}
-                  <div
-                    className="absolute inset-0 bg-[var(--purple-mid)] border border-white/10 transition-all duration-500 group-hover:rotate-90 group-hover:bg-[var(--gold-bright)] group-hover:border-transparent"
-                    style={{
-                      clipPath:
-                        "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-                    }}
-                  />
-
-                  {/* The Letter Icon */}
-                  <span className="relative z-10 font-heading text-xl font-black text-white group-hover:text-[var(--purple-deep)] transition-colors duration-500">
-                    {industry.icon}
-                  </span>
-
-                  {/* Outer Orbit Ring (Subtle) */}
-                  <div className="absolute -inset-2 rounded-full border border-dashed border-white/5 group-hover:border-[var(--gold-bright)]/20 animate-spin-slow" />
-                </div>
-
-                {/* TEXT CONTENT */}
-                <div className="space-y-2">
-                  <h4 className="font-heading text-[13px] md:text-[14px] font-bold text-white/90 group-hover:text-white transition-colors">
-                    {industry.label}
-                  </h4>
-                </div>
-
-                {/* BOTTOM ACCENT: The Glow Line */}
-                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-transparent via-[var(--gold-bright)] to-transparent transition-all duration-700 group-hover:w-full" />
+              {/* Icon */}
+              <div className="mb-4 rounded-xl bg-white/10 p-3 inline-flex group-hover:bg-gold-warm/20">
+                <industry.icon className="h-6 w-6 text-white group-hover:text-gold-warm" />
               </div>
+
+              {/* Title */}
+              <h3 className="font-semibold text-lg text-white mb-2 group-hover:text-gold-warm transition-colors">
+                {industry.label}
+              </h3>
+
+              {/* Description */}
+              <p className="text-xs text-[var(--text-muted)] group-hover:text-white/80 leading-relaxed line-clamp-3">
+                {industry.desc ||
+                  "Tailored strategic growth and digital authority building for high-stakes market leaders."}
+              </p>
+
+              {/* Hover indicator */}
+              <div className="mt-4 w-6 h-0.5 bg-gradient-to-r from-gold-warm/0 via-gold-warm/70 to-gold-warm/0 opacity-0 group-hover:opacity-100 transition-all duration-300" />
             </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Subtle Background Glows */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 h-96 w-96 bg-gold-warm/5 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 h-96 w-96 bg-purple-mid/10 blur-[120px] pointer-events-none" />
     </section>
   );
 }
@@ -878,15 +865,11 @@ export function Testimonials() {
       {/* Structural Grid Background Overlay - Using your Purple Electric for the lines */}
       <div className="relative z-10 w-full flex items-start justify-around mb-12">
         <ScrollReveal>
-          {/* <SectionLabel className="flex items-center justify-start text-gold-bright">
-                Testimonials
-              </SectionLabel> */}
-          <h2 className="mt-4 font-heading text-2xl font-bold leading-tight text-[var(--text-primary)] sm:text-3xl md:text-4xl lg:text-5xl">
-            Trusted by Professionals —{" "}
-            <span className="bg-gradient-to-r from-[var(--gold-bright)] to-[var(--gold-warm)] bg-clip-text text-transparent">
-              Who Value Structure
-            </span>
-          </h2>
+          <SectionHeading
+            label="Testimonials"
+            title="Trusted by Professionals"
+            accent=""
+          />
         </ScrollReveal>
       </div>
       <div
@@ -959,8 +942,8 @@ export function Testimonials() {
 
                 <div className="bg-[var(--bg-panel)] border border-[var(--border-strong)] p-8 md:p-14 relative overflow-hidden shadow-[var(--shadow-card)]">
                   {/* Industrial Corner - Gold Highlight */}
-                  <div className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 bg-[var(--gold-highlight)] opacity-10 border-b border-l border-[var(--border-soft)] flex items-center justify-center">
-                    <Quote className="text-[var(--purple-electric)] dark:text-[var(--gold-bright)] h-5 w-5 md:h-6 md:w-6" />
+                  <div className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 opacity-10 border-b border-l border-[var(--border-soft)] flex items-center justify-center">
+                    <Quote className="text-gold-highlight h-5 w-5 md:h-6 md:w-6" />
                   </div>
 
                   <div className="space-y-6 md:space-y-8">
@@ -992,9 +975,6 @@ export function Testimonials() {
                         <p className="text-[var(--purple-electric)] dark:text-[var(--gold-bright)] text-xs font-bold uppercase tracking-widest mt-1">
                           {testimonials[active].role}
                         </p>
-                      </div>
-                      <div className="h-10 w-10 md:h-12 md:w-12 rounded-full border border-[var(--purple-electric)] bg-[var(--purple-electric)]/5 flex items-center justify-center text-[var(--purple-electric)] dark:text-[var(--gold-bright)] font-bold text-sm">
-                        {testimonials[active].name.charAt(0)}
                       </div>
                     </div>
                   </div>
@@ -1036,7 +1016,7 @@ const items = [
   {
     id: "01",
     title: "Integrated Digital Ecosystem",
-    icon: <Cpu size={20} />,
+    icon: <Layers size={20} />,
     desc: "A unified system that connects your brand across all distribution channels, removing silos and friction.",
   },
   {
@@ -1048,13 +1028,13 @@ const items = [
   {
     id: "03",
     title: "Strong Distribution Network",
-    icon: <Zap size={20} />,
+    icon: <Radio size={20} />,
     desc: "We don't just create; we ensure your message reaches the right audience through engineered distribution.",
   },
   {
     id: "04",
     title: "Consistent Execution Systems",
-    icon: <Target size={20} />,
+    icon: <Repeat size={20} />,
     desc: "No freelancer guesswork. Just battle-tested processes that deliver high-end output on a predictable schedule.",
   },
   {
@@ -1066,7 +1046,7 @@ const items = [
   {
     id: "06",
     title: "Results-Driven Solutions",
-    icon: <BarChart3 size={20} />,
+    icon: <TrendingUp size={20} />,
     desc: "Growth metrics mapped directly to your business bottom line. We track what actually generates revenue.",
   },
 ];
@@ -1180,7 +1160,7 @@ export function WhyChoose() {
   );
 }
 
-export function BlogPreview() {
+export function BlogPreview({ posts }: { posts: BlogPost[] }) {
   return (
     <section className="section surface-band">
       <div className="container-wide">
@@ -1196,14 +1176,26 @@ export function BlogPreview() {
           </Button>
         </div>
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
               className="panel group overflow-hidden transition hover:-translate-y-1 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-card)]"
             >
-              <div className="relative flex h-44 items-center justify-center bg-gradient-to-br from-purple-deep to-purple-vivid text-6xl transition group-hover:brightness-110">
-                {post.icon}
+              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-purple-deep to-purple-vivid text-6xl transition group-hover:brightness-110">
+                {post.coverImage ? (
+                  <Image
+                    src={post.coverImage}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    {post.icon}
+                  </div>
+                )}
                 <span className="absolute left-4 top-4 rounded-full bg-gold-warm px-3 py-1 font-label text-[11px] uppercase tracking-wider text-white">
                   {post.category}
                 </span>
@@ -1230,8 +1222,8 @@ export function BlogPreview() {
 export function CTABanner() {
   return (
     <section className="section relative overflow-hidden bg-[linear-gradient(135deg,#080514_0%,#1E1245_35%,#2D1B69_65%,#080514_100%)] bg-[length:300%_300%] animate-gradient-shift">
-      <div className="absolute inset-0 opacity-[0.06] [background-image:repeating-radial-gradient(circle_at_center,white_0_1px,transparent_1px_58px)]" />
-      <div className="container-wide panel-strong relative text-center">
+      <div className="absolute inset-0 opacity-[0.05] [background-image:repeating-radial-gradient(circle_at_center,white_0_1px,transparent_1px_58px)]" />
+      <div className="container-wide bg-[var(--background)] relative text-center">
         <div className="px-6 py-12">
           <SectionLabel>Start the System</SectionLabel>
           <h2 className="mx-auto max-w-3xl font-heading text-h2 font-bold text-white">

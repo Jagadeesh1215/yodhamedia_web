@@ -8,7 +8,7 @@ export const navItems = [
     dropdown: services.map((service) => ({
       label: service.name,
       href: `/services/${service.slug}`,
-      icon: service.emoji,
+      icon: service.icon,
     })),
   },
   { label: "Business Hub", href: "/business-hub" },

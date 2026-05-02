@@ -1,29 +1,36 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FAQAccordion } from "@/components/sections/FAQAccordion";
 import { CTABanner } from "@/components/sections/HomeSections";
-import { blogPosts } from "@/lib/constants/blog";
+import { getPublishedBlogPosts, getBlogPostBySlug } from "@/lib/blog/store";
 
-type Props = { params: { slug: string } };
+export const dynamic = "force-dynamic";
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
-
-export function generateMetadata({ params }: Props): Metadata {
-  const post = blogPosts.find((item) => item.slug === params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await getBlogPostBySlug(params.slug);
   if (!post) return {};
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || post.excerpt,
   };
 }
 
-export default function BlogPostPage({ params }: Props) {
-  const post = blogPosts.find((item) => item.slug === params.slug);
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = await getBlogPostBySlug(params.slug);
   if (!post) notFound();
-  const otherPosts = blogPosts.filter((item) => item.slug !== post.slug);
+  const otherPosts = (await getPublishedBlogPosts()).filter(
+    (item) => item.slug !== post.slug,
+  );
 
   return (
     <>
@@ -47,10 +54,23 @@ export default function BlogPostPage({ params }: Props) {
               {post.title}
             </h1>
             <p className="mt-4 font-body text-sm text-[var(--text-secondary)]">
-              YodhaMedia Editorial | {post.date} | {post.readTime}
+              {post.author || "YodhaMedia Editorial"} | {post.date} |{" "}
+              {post.readTime}
             </p>
-            <div className="mt-8 flex h-80 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-deep to-purple-vivid text-8xl">
-              {post.icon}
+            <div className="relative mt-8 h-80 overflow-hidden rounded-2xl bg-gradient-to-br from-purple-deep to-purple-vivid text-8xl">
+              {post.coverImage ? (
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 66vw"
+                  className="object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <span>{post.icon}</span>
+                </div>
+              )}
             </div>
             <div className="mt-8 border-l-4 border-gold-warm bg-gold-pale/40 p-5">
               <h2 className="font-heading text-xl font-bold text-[var(--text-primary)]">

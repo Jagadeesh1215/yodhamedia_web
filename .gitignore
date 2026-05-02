@@ -5,4 +5,4 @@ out
 dist
 *.log
 dev-server.err
-.env*
+.env
