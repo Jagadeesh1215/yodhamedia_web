@@ -2,14 +2,7 @@
 
 import * as React from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import {
-  Camera,
-  Globe,
-  Linkedin,
-  Package,
-  LayoutTemplate,
-  AppWindow,
-} from "lucide-react";
+import { Camera, Globe, Linkedin, Package, LayoutTemplate } from "lucide-react";
 import {
   SiYoutube,
   SiFacebook,
@@ -60,7 +53,7 @@ const SIZE = {
 
 /* ---------------- custom icons ---------------- */
 
-const IconClaude = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconClaude = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#D97706" />
     <path
@@ -89,7 +82,7 @@ const IconGemini = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const IconKling = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconKling = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#0F172A" />
     <path
@@ -104,7 +97,7 @@ const IconKling = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const IconOpenArt = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconOpenArt = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#1E1B4B" />
     <circle cx="16" cy="24" r="5" stroke="white" strokeWidth="2" />
@@ -113,7 +106,7 @@ const IconOpenArt = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const IconMake = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconMake = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#6E3FF3" />
     <circle cx="14" cy="24" r="4" fill="white" />
@@ -132,7 +125,7 @@ const IconPremiere = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const IconAfterEffects = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconAfterEffects = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#1A005C" />
     <text x="7" y="32" fontSize="22" fontWeight="900" fill="#9999FF">
@@ -150,7 +143,7 @@ const IconWWW = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const IconPixelApp = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconPixelApp = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 48 48" fill="none">
     <rect width="48" height="48" rx="12" fill="#0F172A" />
     <rect x="13" y="13" width="8" height="8" rx="2" fill="#A855F7" />
