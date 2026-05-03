@@ -1,60 +1,51 @@
 import type { Metadata } from "next";
 import { CTABanner } from "@/components/sections/HomeSections";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import PortfolioLedger from "@/components/sections/PortfolioLedger";
 
 export const metadata: Metadata = {
-  title: "Our Work",
-  description: "Portfolio examples and project systems by YodhaMedia LLP.",
+  title: "Case Studies | YodhaMedia",
+  description: "Systems and digital transformations by YodhaMedia LLP.",
 };
 
 export default function OurWorkPage() {
+  // To add more projects, just append to this list
   const cases = [
-    [
-      "Healthcare ORM System",
-      "Google profile optimization, review workflows, and local trust-building content.",
-    ],
-    [
-      "Clinic Social Launch",
-      "Reels, doctor explainers, campaign creatives, and platform management.",
-    ],
-    [
-      "Business Website Build",
-      "Responsive web presence with service pages, blog structure, and inquiry paths.",
-    ],
+    {
+      id: "01",
+      title: "Healthcare ORM System",
+      category: "Reputation",
+      description: "Google profile optimization and trust-building workflows.",
+      details:
+        "Automated review generation and local SEO stabilization for medical practitioners.",
+      tags: ["Local SEO", "ORM", "Automation"],
+      accent: "#D4AF37", // Gold
+    },
+    {
+      id: "02",
+      title: "Clinic Social Launch",
+      category: "Content",
+      description: "Video-first growth strategy for specialized clinics.",
+      details:
+        "High-retention Reels and educational doctor-led content systems.",
+      tags: ["Video", "Instagram", "Creative"],
+      accent: "#a855f7", // Purple
+    },
+    {
+      id: "03",
+      title: "Business Web Build",
+      category: "Development",
+      description: "Inquiry-optimized digital infrastructure.",
+      details:
+        "High-performance Next.js sites focused on conversion and technical SEO.",
+      tags: ["Next.js", "UI/UX", "Infrastructure"],
+      accent: "#3b82f6", // Blue
+    },
   ];
+
   return (
-    <>
-      <section className="section hero-shell pt-32">
-        <div className="container-wide text-center">
-          <SectionLabel>Our Work</SectionLabel>
-          <h1 className="font-heading text-h2 font-bold text-[var(--text-primary)]">
-            Campaign Systems,{" "}
-            <span className="text-gold-highlight">
-              Not One-Off Deliverables
-            </span>
-          </h1>
-          <p className="body-dark mx-auto mt-5 max-w-3xl">
-            A polished placeholder portfolio for now, ready to be replaced with
-            real case studies when project assets are available.
-          </p>
-        </div>
-      </section>
-      <section className="section surface-band">
-        <div className="container-wide grid gap-6 lg:grid-cols-3">
-          {cases.map(([title, text], index) => (
-            <div key={title} className="panel p-7">
-              <div className="flex h-48 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-deep to-purple-vivid font-display text-6xl font-bold text-gold-highlight">
-                0{index + 1}
-              </div>
-              <h2 className="mt-6 font-heading text-2xl font-bold text-[var(--text-primary)]">
-                {title}
-              </h2>
-              <p className="body-light mt-3">{text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+    <main className="bg-black">
+      <PortfolioLedger cases={cases} />
       <CTABanner />
-    </>
+    </main>
   );
 }
