@@ -1,8 +1,8 @@
 "use client";
 
-import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { site } from "@/lib/constants/site";
+import { SiWhatsapp } from "react-icons/si";
 
 export function WhatsAppButton() {
   const pathname = usePathname();
@@ -20,7 +20,7 @@ export function WhatsAppButton() {
       aria-label="Chat on WhatsApp"
     >
       <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-40 animate-ping" />
-      <MessageCircle className="relative h-6 w-6" />
+      <SiWhatsapp className="relative h-6 w-6" />
       <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-md bg-dark-surface px-3 py-2 font-body text-xs text-white opacity-0 shadow-card transition group-hover:opacity-100 md:block">
         Chat on WhatsApp
       </span>

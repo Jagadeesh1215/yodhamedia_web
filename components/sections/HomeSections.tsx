@@ -71,7 +71,7 @@ export function HeroSection() {
           <div className="relative flex items-center gap-3 rounded-full bg-purple-deep/95 px-5 py-2 backdrop-blur-xl">
             {/* 4. The Shimmering Gold Text */}
             <span className="animate-shimmer bg-gradient-to-r from-gold-warm via-gold-pale to-gold-warm bg-[length:200%_auto] bg-clip-text text-label text-white font-medium uppercase tracking-[0.2em] text-transparent">
-              Digital Growth Partner
+              AI-driven digital growth partner
             </span>
           </div>
         </div>
