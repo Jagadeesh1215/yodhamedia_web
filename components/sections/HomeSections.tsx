@@ -955,8 +955,7 @@ export function Testimonials() {
                   <div className="space-y-6 md:space-y-8">
                     {/* Dynamic Growth Badge */}
                     <div className="inline-block px-3 py-1 bg-[var(--purple-electric)] dark:bg-[var(--gold-bright)] text-white dark:text-[var(--purple-deep)] font-mono text-[10px] uppercase tracking-tighter shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]">
-                      {testimonials[active].name.split(" ")[0]} {"//"} GROWTH +
-                      {Math.floor(Math.random() * 30) + 20}%
+                      {testimonials[active].name.split(" ")[0]} {"//"} Growth
                     </div>
 
                     <div className="flex gap-1">

@@ -42,7 +42,7 @@ export function DeletePostButton({
           setPending(false);
         }
       }}
-      className="inline-flex h-10 items-center gap-2 rounded-[var(--radius-sm)] border border-red-500/20 bg-red-500/10 px-3 text-sm font-semibold text-red-500 transition hover:-translate-y-0.5 disabled:opacity-70"
+      className="inline-flex h-10 items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 text-[10px] font-mono uppercase tracking-[0.3em] text-red-300 transition hover:border-red-400/40 hover:text-red-200 disabled:opacity-70"
     >
       {pending ? (
         <>

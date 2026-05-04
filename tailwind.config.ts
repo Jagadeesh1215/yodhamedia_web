@@ -8,6 +8,13 @@ const config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        body: ["var(--font-body)", "system-ui", "sans-serif"],
+        heading: ["var(--font-heading)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "serif"],
+        label: ["var(--font-mono)", "ui-monospace", "monospace"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
       colors: {
         purple: {
           deep: "#1E1245",

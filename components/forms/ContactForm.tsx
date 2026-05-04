@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { services } from "@/lib/constants/services";
+import { site } from "@/lib/constants/site";
+import Link from "next/link";
 
 type ContactFormState = {
   name: string;
@@ -149,9 +151,23 @@ export function ContactForm() {
       />
 
       {error && (
-        <p className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500">
-          {error}
-        </p>
+        <div className="mt-4 space-y-3 rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-500">
+          <p>{error}</p>
+          <div className="flex flex-wrap gap-3 text-[10px] font-mono uppercase tracking-[0.3em]">
+            <a
+              href={`mailto:${site.email}`}
+              className="rounded-full border border-red-500/20 px-3 py-2 transition hover:border-red-400/40"
+            >
+              Email us
+            </a>
+            <Link
+              href="/book-consultation"
+              className="rounded-full border border-red-500/20 px-3 py-2 transition hover:border-red-400/40"
+            >
+              Book a slot
+            </Link>
+          </div>
+        </div>
       )}
       {sent && (
         <div className="mt-4 flex items-start gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-600">

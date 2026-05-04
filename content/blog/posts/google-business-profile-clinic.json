@@ -6,13 +6,17 @@
   "date": "April 18, 2026",
   "readTime": "4 min read",
   "icon": "⭐",
-  "tags": ["ORM", "Local SEO", "Clinics"],
+  "tags": [
+    "ORM",
+    "Local SEO",
+    "Clinics"
+  ],
   "takeaway": "A clinic profile should be treated like a front desk: accurate, responsive, and updated every week.",
   "content": [
     {
       "heading": "Your Profile Is a Trust Surface",
       "body": [
-        "Patients often compare clinics directly from search results. Photos, services, timings, ratings, and recent posts shape their first impression.",
+        "Patients often compare clinics directly from search results. Photos, services, timings, ratings, and recent posts shape their first impression,",
         "Incomplete profiles make even strong clinics appear less active or less reliable."
       ]
     },
@@ -26,9 +30,9 @@
   ],
   "author": "YodhaMedia Editorial",
   "status": "published",
-  "featured": false,
+  "featured": true,
   "publishedAt": "2026-04-18T08:30:00.000Z",
-  "updatedAt": "2026-04-18T08:30:00.000Z",
+  "updatedAt": "2026-05-04T08:46:53.964Z",
   "seoTitle": "Google Business Profile Basics for Clinics",
   "seoDescription": "How clinics can improve local discovery, ratings, and patient confidence with routine profile care."
 }

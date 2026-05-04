@@ -16,6 +16,7 @@ export type BlogPost = {
   content: BlogSection[];
   author?: string;
   coverImage?: string;
+  coverImagePublicId?: string;
   status?: "published" | "draft";
   featured?: boolean;
   publishedAt?: string;

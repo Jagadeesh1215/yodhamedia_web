@@ -21,33 +21,29 @@ export default async function LeadsPage() {
   ]);
 
   return (
-    <section className="section hero-shell pt-32">
-      <div className="container-wide space-y-8">
-        <div className="panel-strong p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-warm">
-            Lead inbox
-          </p>
-          <h1 className="mt-4 font-heading text-h2 font-bold text-[var(--text-primary)]">
-            Contact and booking requests
-          </h1>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--text-secondary)]">
-            These submissions are stored server-side and also emailed if SMTP is
-            configured.
-          </p>
-        </div>
+    <section className="space-y-8">
+      <div className="admin-panel-strong p-6 md:p-8">
+        <p className="admin-kicker">Lead inbox</p>
+        <h1 className="mt-4 max-w-4xl text-4xl font-heading font-semibold tracking-tighter text-[var(--text-primary)] md:text-6xl">
+          Contact and booking requests
+        </h1>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-[var(--text-secondary)] md:text-base">
+          These submissions are stored server-side and also emailed if SMTP is
+          configured.
+        </p>
+      </div>
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          <LeadColumn
-            title="Contact leads"
-            leads={contactLeads}
-            accent="General enquiries"
-          />
-          <LeadColumn
-            title="Consultation leads"
-            leads={consultationLeads}
-            accent="Book-a-call requests"
-          />
-        </div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <LeadColumn
+          title="Contact leads"
+          leads={contactLeads}
+          accent="General enquiries"
+        />
+        <LeadColumn
+          title="Consultation leads"
+          leads={consultationLeads}
+          accent="Book-a-call requests"
+        />
       </div>
     </section>
   );
@@ -63,11 +59,9 @@ function LeadColumn({
   accent: string;
 }) {
   return (
-    <div className="panel p-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-warm">
-        {accent}
-      </p>
-      <h2 className="mt-1 font-heading text-2xl font-bold text-[var(--text-primary)]">
+    <div className="admin-panel p-6 md:p-8">
+      <p className="admin-kicker">{accent}</p>
+      <h2 className="mt-2 text-2xl font-heading font-semibold tracking-tighter text-[var(--text-primary)]">
         {title}
       </h2>
 
@@ -80,20 +74,20 @@ function LeadColumn({
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="font-heading text-lg font-semibold text-[var(--text-primary)]">
+                  <p className="font-heading text-lg font-semibold tracking-tight text-[var(--text-primary)]">
                     {lead.name}
                   </p>
-                  <p className="text-sm text-[var(--text-secondary)]">
-                    {lead.email} • {lead.phone}
+                  <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                    {lead.email} - {lead.phone}
                   </p>
                 </div>
-                <span className="rounded-full bg-gold-warm/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-warm">
+                <span className="rounded-full border border-[var(--border-soft)] bg-[var(--bg-app)] px-3 py-1 text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--text-muted)]">
                   {lead.createdAt
                     ? new Date(lead.createdAt).toLocaleDateString()
                     : "new"}
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-6 text-[var(--text-secondary)]">
+              <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
                 {lead.message ||
                   lead.notes ||
                   lead.preferredDate ||

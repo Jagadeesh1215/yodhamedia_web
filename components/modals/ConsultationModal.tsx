@@ -15,6 +15,7 @@ export function ConsultationModal({
   const [sent, setSent] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const bookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL?.trim();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -76,46 +77,50 @@ export function ConsultationModal({
                   Use the free scheduling page if you already have a Calendly or
                   Cal.com link set up.
                 </p>
-                <Link
-                  href="/book-consultation"
-                  className="mt-3 inline-flex text-sm font-semibold text-gold-warm hover:underline"
-                >
-                  Open booking page
-                </Link>
+              <Link
+                href="/book-consultation"
+                className="mt-3 inline-flex text-sm font-semibold text-gold-warm hover:underline"
+              >
+                Open booking page
+              </Link>
+              <p className="mt-3 text-xs leading-6 text-[var(--text-muted)]">
+                If the modal submission is unavailable, the booking page and the
+                contact form still give visitors a path to reach the team.
+              </p>
               </div>
-              {/* <form
+
+              <form
                 className="mt-6 grid gap-4"
-                onSubmit={(event) => {
+                onSubmit={async (event) => {
                   event.preventDefault();
                   setPending(true);
                   setError(null);
-                  const payload = {
-                    ...form,
-                    source: "consultation-modal",
-                    bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || "",
-                  };
-                  fetch("/api/consultation", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                  })
-                    .then(async (response) => {
-                      const data = await response.json();
-                      if (!response.ok || !data.ok) {
-                        throw new Error(
-                          data.error || "Unable to submit request.",
-                        );
-                      }
-                      setSent(true);
-                    })
-                    .catch((submitError) => {
-                      setError(
-                        submitError instanceof Error
-                          ? submitError.message
-                          : "Unable to submit request.",
+                  try {
+                    const response = await fetch("/api/consultation", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        ...form,
+                        source: "consultation-modal",
+                        bookingUrl: bookingUrl || "",
+                      }),
+                    });
+                    const data = await response.json();
+                    if (!response.ok || !data.ok) {
+                      throw new Error(
+                        data.error || "Unable to submit request.",
                       );
-                    })
-                    .finally(() => setPending(false));
+                    }
+                    setSent(true);
+                  } catch (submitError) {
+                    setError(
+                      submitError instanceof Error
+                        ? submitError.message
+                        : "Unable to submit request.",
+                    );
+                  } finally {
+                    setPending(false);
+                  }
                 }}
               >
                 <div className="grid gap-4 md:grid-cols-2">
@@ -225,7 +230,7 @@ export function ConsultationModal({
                     "Submit Request"
                   )}
                 </button>
-              </form> */}
+              </form>
             </>
           )}
         </Dialog.Content>

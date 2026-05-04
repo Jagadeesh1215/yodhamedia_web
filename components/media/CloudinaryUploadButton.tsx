@@ -1,98 +1,57 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { ImageUp, Loader2 } from "lucide-react";
+import { useRef, useState, type ChangeEvent } from "react";
+import { ImageUp } from "lucide-react";
 
-declare global {
-  interface Window {
-    cloudinary?: {
-      createUploadWidget: (
-        options: Record<string, unknown>,
-        callback: (
-          error: unknown,
-          result: { event: string; info?: { secure_url?: string } } | undefined,
-        ) => void,
-      ) => { open: () => void };
-    };
-  }
-}
+export function CloudinaryUploadButton({
+  onSelected,
+  label = "Select image",
+}: {
+  onSelected: (file: File) => void;
+  label?: string;
+}) {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-function useCloudinaryScript() {
-  const [ready, setReady] = useState(false);
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-  useEffect(() => {
-    if (window.cloudinary) {
-      setReady(true);
+    if (!file.type.startsWith("image/")) {
+      setError("Only image files are allowed.");
+      event.target.value = "";
       return;
     }
 
-    const script = document.createElement("script");
-    script.src = "https://upload-widget.cloudinary.com/global/all.js";
-    script.async = true;
-    script.onload = () => setReady(true);
-    document.body.appendChild(script);
+    if (file.size > 10_000_000) {
+      setError("Images must be 10MB or smaller.");
+      event.target.value = "";
+      return;
+    }
 
-    return () => {
-      script.onload = null;
-    };
-  }, []);
-
-  return ready;
-}
-
-export function CloudinaryUploadButton({
-  onUploaded,
-  label = "Upload image",
-}: {
-  onUploaded: (url: string) => void;
-  label?: string;
-}) {
-  const ready = useCloudinaryScript();
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-  const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-
-  const openWidget = () => {
-    if (!window.cloudinary || !cloudName || !uploadPreset) return;
-
-    const widget = window.cloudinary.createUploadWidget(
-      {
-        cloudName,
-        uploadPreset,
-        multiple: false,
-        cropping: false,
-        sources: ["local", "url", "camera"],
-        showAdvancedOptions: false,
-        folder: "yodhamedia/blog",
-        maxImageFileSize: 10_000_000,
-      },
-      (error, result) => {
-        if (error) {
-          console.error(error);
-          return;
-        }
-
-        if (result?.event === "success" && result.info?.secure_url) {
-          onUploaded(result.info.secure_url);
-        }
-      },
-    );
-
-    widget.open();
-  };
+    setError(null);
+    onSelected(file);
+    event.target.value = "";
+  }
 
   return (
-    <button
-      type="button"
-      onClick={openWidget}
-      disabled={!ready || !cloudName || !uploadPreset}
-      className="inline-flex h-11 items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--bg-panel)] px-4 text-sm font-semibold text-[var(--text-primary)] transition hover:-translate-y-0.5 hover:border-[var(--border-strong)] disabled:cursor-not-allowed disabled:opacity-60"
-    >
-      {ready ? (
+    <div className="space-y-2">
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+      <button
+        type="button"
+        onClick={() => inputRef.current?.click()}
+        className="inline-flex h-11 items-center gap-2 rounded-full border border-[var(--border-soft)] bg-[var(--bg-panel)] px-4 text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--text-primary)] transition hover:border-[var(--border-strong)] hover:text-[var(--gold-warm)]"
+      >
         <ImageUp className="h-4 w-4" />
-      ) : (
-        <Loader2 className="h-4 w-4 animate-spin" />
-      )}
-      {label}
-    </button>
+        {label}
+      </button>
+      {error ? <p className="text-xs text-red-300">{error}</p> : null}
+    </div>
   );
 }

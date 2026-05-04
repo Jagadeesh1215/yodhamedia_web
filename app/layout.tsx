@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import {
+  Inter,
   Work_Sans,
-  Manrope,
-  Barlow_Condensed,
   Cormorant_Garamond,
   JetBrains_Mono,
-  Outfit,
 } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
@@ -18,13 +16,6 @@ const body = Work_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   variable: "--font-body",
-  display: "swap",
-});
-
-const altBody = Manrope({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-alt",
   display: "swap",
 });
 
@@ -59,17 +50,10 @@ const display = Cormorant_Garamond({
   variable: "--font-display",
   display: "swap",
 });
-const heading = Outfit({
+const heading = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-heading",
-  display: "swap",
-});
-
-const label = Barlow_Condensed({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-label",
   display: "swap",
 });
 
@@ -91,8 +75,6 @@ export default function RootLayout({
     ${display.variable}
     ${heading.variable}
     ${body.variable}
-    ${altBody.variable}
-    ${label.variable}
     ${mono.variable}
   `}
     >

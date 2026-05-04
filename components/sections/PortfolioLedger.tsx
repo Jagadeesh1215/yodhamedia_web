@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ArrowUpRight } from "lucide-react";
+import type { CaseStudy } from "@/lib/constants/case-studies";
 
-export default function PortfolioLedger({ cases }: { cases: any[] }) {
+export default function PortfolioLedger({ cases }: { cases: CaseStudy[] }) {
   return (
     <section className="py-24 lg:py-44 bg-[var(--bg-app)]">
       <div className="container-wide px-6">
@@ -21,8 +22,8 @@ export default function PortfolioLedger({ cases }: { cases: any[] }) {
           </h1>
           <div className="h-px w-24 bg-[var(--gold-warm)] mb-8" />
           <p className="text-sm md:text-xl text-[var(--text-secondary)] max-w-3xl leading-relaxed">
-            A polished placeholder portfolio for now, ready to be replaced with
-            real case studies when project assets are available.
+            A curated archive of the systems we build, showing the strategy,
+            implementation, and business outcome behind each engagement.
           </p>
         </div>
 
@@ -67,6 +68,19 @@ export default function PortfolioLedger({ cases }: { cases: any[] }) {
                 <p className="text-lg text-[var(--text-secondary)] leading-relaxed max-w-md">
                   {project.description}
                 </p>
+                <p className="text-sm leading-7 text-[var(--text-secondary)] max-w-xl">
+                  {project.details}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags?.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-[var(--border-soft)] bg-[var(--bg-panel)] px-3 py-1 text-[10px] font-mono uppercase tracking-[0.24em] text-[var(--text-muted)]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                 <button className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[var(--gold-warm)] group-hover:gap-4 transition-all">
                   Read Case Study <ArrowUpRight size={14} />
                 </button>

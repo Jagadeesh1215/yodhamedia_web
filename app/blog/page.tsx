@@ -3,7 +3,6 @@ import Image from "next/image";
 import { BlogTabs } from "@/components/sections/BlogTabs";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { getPublishedBlogPosts } from "@/lib/blog/store";
-import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
@@ -19,7 +18,39 @@ export default async function BlogPage() {
   const posts = await getPublishedBlogPosts();
   const featured = posts[0];
 
-  if (!featured) notFound();
+  if (!featured) {
+    return (
+      <section className="bg-[var(--bg-app)] pt-32 pb-20">
+        <div className="container-wide px-6">
+          <div className="panel-strong mx-auto max-w-3xl p-8 text-center md:p-12">
+            <SectionLabel>Blog archive</SectionLabel>
+            <h1 className="mt-6 font-heading text-4xl font-bold tracking-tight text-[var(--text-primary)] md:text-6xl">
+              Content archive is being prepared
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[var(--text-secondary)] md:text-base">
+              The blog is live, but the repository has no published articles at
+              the moment. Add seeded posts or create the first article in the
+              admin area and this page will populate automatically.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex h-11 items-center rounded-full bg-[var(--gold-warm)] px-4 text-[10px] font-mono uppercase tracking-[0.3em] text-black transition hover:opacity-95"
+              >
+                Contact us
+              </Link>
+              <Link
+                href="/admin/blogs/new"
+                className="inline-flex h-11 items-center rounded-full border border-[var(--border-soft)] bg-[var(--bg-panel)] px-4 text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--text-primary)] transition hover:border-[var(--border-strong)] hover:text-[var(--gold-warm)]"
+              >
+                Create first post
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-[var(--bg-app)] pt-32 pb-20">

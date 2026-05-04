@@ -18,26 +18,22 @@ export default async function NewBlogPage() {
   await requireAdmin();
 
   return (
-    <section className="section hero-shell pt-32">
-      <div className="container-wide">
-        <div className="mb-8 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold-warm">
-              Content studio
-            </p>
-            <h1 className="mt-4 font-heading text-h2 font-bold text-[var(--text-primary)]">
-              Create new blog article
-            </h1>
-          </div>
-          <Link
-            href="/admin/blogs"
-            className="inline-flex h-11 items-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--bg-panel)] px-4 text-sm font-semibold text-[var(--text-primary)] transition hover:-translate-y-0.5"
-          >
-            Back to library
-          </Link>
+    <section className="space-y-8">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="space-y-3">
+          <p className="admin-kicker">Content studio</p>
+          <h1 className="text-4xl font-heading font-semibold tracking-tighter text-[var(--text-primary)] md:text-6xl">
+            Create new blog article
+          </h1>
         </div>
-        <BlogEditor />
+        <Link
+          href="/admin/blogs"
+          className="inline-flex h-11 items-center rounded-full border border-[var(--border-soft)] bg-[var(--bg-panel)] px-4 text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--text-primary)] transition hover:border-[var(--border-strong)] hover:text-[var(--gold-warm)]"
+        >
+          Back to library
+        </Link>
       </div>
+      <BlogEditor />
     </section>
   );
 }

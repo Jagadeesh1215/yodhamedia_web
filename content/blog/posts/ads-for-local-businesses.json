@@ -6,7 +6,11 @@
   "date": "April 23, 2026",
   "readTime": "6 min read",
   "icon": "📊",
-  "tags": ["Meta Ads", "Google Ads", "Leads"],
+  "tags": [
+    "Meta Ads",
+    "Google Ads",
+    "Leads"
+  ],
   "takeaway": "Ads perform best when every rupee has a clear job: awareness, enquiry, booking, or repeat engagement.",
   "content": [
     {
@@ -28,7 +32,7 @@
   "status": "published",
   "featured": false,
   "publishedAt": "2026-04-23T08:30:00.000Z",
-  "updatedAt": "2026-04-23T08:30:00.000Z",
+  "updatedAt": "2026-05-04T10:13:35.048Z",
   "seoTitle": "How Local Businesses Should Think About Digital Ads",
   "seoDescription": "A simple way to connect ad goals, landing pages, and measurable enquiry quality."
 }
