@@ -734,55 +734,61 @@ export function StatsSection() {
 
 export function IndustriesSection() {
   return (
-    <section className="section relative overflow-hidden bg-[var(--purple-deep)] py-20 md:py-32">
-      <div className="container-wide relative z-10">
-        {/* We keep your SectionHeading here */}
-        <div className="text-center">
-          <SectionHeading
-            label="Industries We Serve"
-            title="Designed for Trust-Heavy"
-            accent="Growth Markets"
-            darkText
-          />
+    <section className="bg-[var(--bg-app)] py-24 lg:py-40">
+      <div className="container-wide px-6">
+        {/* Header with a unique thin vertical line */}
+        <div className="flex gap-12 mb-24">
+          <div className="w-[1px] bg-[var(--gold-warm)] h-32 hidden md:block" />
+          <div className="max-w-2xl">
+            <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[var(--gold-warm)] mb-4 block">
+              Market Segments
+            </span>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-[var(--text-primary)]">
+              Industries We Serve
+            </h2>
+          </div>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-4">
+        {/* The Box Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-[var(--border-soft)]">
           {industries.map((industry, idx) => (
             <motion.div
-              key={industry.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -6 }}
+              key={idx}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.3 }}
-              className="group relative rounded-xl bg-zinc-900/50 border border-zinc-800 p-5 hover:border-gold-warm/40 hover:bg-zinc-800 transition-all duration-200"
+              transition={{ delay: idx * 0.05 }}
+              className="group relative p-10 lg:p-14 border-r border-b border-[var(--border-soft)] transition-colors hover:bg-[var(--gold-warm)]/[0.02]"
             >
-              {/* Icon */}
-              <div className="mb-4 rounded-xl bg-white/10 p-3 inline-flex group-hover:bg-gold-warm/20">
-                <industry.icon className="h-6 w-6 text-white group-hover:text-gold-warm" />
+              {/* Box Header: Icon & Index */}
+              <div className="flex justify-between items-start mb-12">
+                <div className="p-3 rounded-full border border-[var(--border-soft)] text-[var(--text-muted)] group-hover:text-[var(--gold-warm)] group-hover:border-[var(--gold-warm)] transition-all duration-500">
+                  <industry.icon size={20} strokeWidth={1.5} />
+                </div>
               </div>
 
-              {/* Title */}
-              <h3 className="font-semibold text-lg text-white mb-2 group-hover:text-gold-warm transition-colors">
-                {industry.label}
-              </h3>
+              {/* Box Body */}
+              <div className="space-y-4">
+                <h3 className="text-3xl font-bold tracking-tighter text-[var(--text-primary)] group-hover:translate-x-1 transition-transform duration-500">
+                  {industry.label}
+                </h3>
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed font-light line-clamp-3">
+                  {industry.desc ||
+                    "Precision systems built for high-authority growth and digital sovereignty."}
+                </p>
+              </div>
 
-              {/* Description */}
-              <p className="text-xs text-[var(--text-muted)] group-hover:text-white/80 leading-relaxed line-clamp-3">
-                {industry.desc ||
-                  "Tailored strategic growth and digital authority building for high-stakes market leaders."}
-              </p>
+              {/* Minimal "Internal" Button */}
+              <div className="mt-10 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--gold-warm)] opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                Explore <ArrowUpRight size={12} />
+              </div>
 
-              {/* Hover indicator */}
-              <div className="mt-4 w-6 h-0.5 bg-gradient-to-r from-gold-warm/0 via-gold-warm/70 to-gold-warm/0 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+              {/* Corner Accent (Reveals on hover) */}
+              <div className="absolute top-0 right-0 w-0 h-0 border-t-[1px] border-r-[1px] border-[var(--gold-warm)] group-hover:w-4 group-hover:h-4 transition-all duration-500" />
             </motion.div>
           ))}
         </div>
       </div>
-
-      {/* Subtle Background Glows */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 h-96 w-96 bg-gold-warm/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 h-96 w-96 bg-purple-mid/10 blur-[120px] pointer-events-none" />
     </section>
   );
 }
@@ -892,7 +898,7 @@ export function Testimonials() {
                 whileInView={{ opacity: 1, y: 0 }}
                 className="inline-flex items-center gap-2 px-4 py-2 border border-[var(--border-strong)] bg-[var(--bg-panel-strong)] rounded-none"
               >
-                <div className="w-2 h-2 bg-[var(--purple-electric)] animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-[var(--purple-electric)] animate-pulse" />
                 <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[var(--purple-electric)] dark:text-[var(--gold-bright)]">
                   Success Stories
                 </span>
@@ -1005,7 +1011,7 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="h-12 w-12 md:h-14 md:w-14 flex items-center justify-center border border-[var(--border-soft)] bg-[var(--bg-panel)] text-[var(--purple-electric)] dark:text-[var(--gold-bright)] hover:bg-[var(--purple-electric)] hover:text-white dark:hover:bg-[var(--gold-bright)] dark:hover:text-[var(--purple-deep)] transition-all duration-300 active:scale-95 shadow-[var(--shadow-soft)]"
+      className="h-12 w-12 md:h-14 md:w-14 cursor-none flex items-center justify-center border border-[var(--border-soft)] bg-[var(--bg-panel)] text-[var(--purple-electric)] dark:text-[var(--gold-bright)] hover:bg-[var(--purple-electric)] hover:text-white dark:hover:bg-[var(--gold-bright)] dark:hover:text-[var(--purple-deep)] transition-all duration-300 active:scale-95 shadow-[var(--shadow-soft)]"
     >
       {icon}
     </button>
