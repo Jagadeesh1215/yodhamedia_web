@@ -8,6 +8,7 @@ import {
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { services } from "@/lib/constants/services";
+import { CheckCircle2, XCircle, ArrowRight, ChevronRight } from "lucide-react";
 
 type Props = { params: { slug: string } };
 
@@ -19,7 +20,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const service = services.find((item) => item.slug === params.slug);
   if (!service) return {};
   return {
-    title: service.name,
+    title: `${service.name} | YodhaMedia`,
     description: service.description,
   };
 }
@@ -29,123 +30,142 @@ export default function ServiceDetailPage({ params }: Props) {
   if (!service) notFound();
 
   return (
-    <>
-      <section className="section hero-shell pt-32">
-        <div className="container-wide">
-          <p className="font-body text-sm text-[var(--text-muted)]">
-            <Link href="/" className="hover:text-gold-highlight">
+    <main className="bg-[var(--bg-app)]">
+      {/* --- HERO SECTION --- */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-shell">
+        <div className="container-wide px-6">
+          <nav className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)] mb-12">
+            <Link
+              href="/"
+              className="hover:text-[var(--gold-warm)] transition-colors"
+            >
               Home
-            </Link>{" "}
-            /{" "}
-            <Link href="/services" className="hover:text-gold-highlight">
+            </Link>
+            <ChevronRight size={10} />
+            <Link
+              href="/services"
+              className="hover:text-[var(--gold-warm)] transition-colors"
+            >
               Services
-            </Link>{" "}
-            / {service.name}
-          </p>
-          <SectionLabel className="mt-8 justify-start">
-            {service.category}
-          </SectionLabel>
-          <h1 className="max-w-4xl font-heading text-h2 font-bold text-[var(--text-primary)]">
-            {service.hero}
-          </h1>
-          <p className="body-dark mt-6 max-w-3xl">{service.description}</p>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Button href="/contact">Book Consultation</Button>
-            <Button href="/our-work" variant="outline">
-              See Our Work
-            </Button>
+            </Link>
+            <ChevronRight size={10} />
+            <span className="text-[var(--text-primary)]">{service.name}</span>
+          </nav>
+
+          <div className="max-w-5xl">
+            <SectionLabel className="justify-start mb-6 text-sm">
+              {service.category}
+            </SectionLabel>
+            <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-[var(--text-primary)] leading-[0.95] mb-8">
+              {service.hero}
+            </h1>
+            <p className="text-xl md:text-xl text-[var(--text-secondary)] max-w-3xl leading-relaxed mb-12">
+              {service.description}
+            </p>
+            <div className="flex flex-wrap gap-6">
+              <Button href="/contact" className="h-14 px-10 text-lg shadow-lg">
+                Book Consultation
+              </Button>
+              <Button
+                href="/our-work"
+                variant="outline"
+                className="h-14 px-10 text-lg group border-[var(--border-strong)]"
+              >
+                See Our Work
+              </Button>
+            </div>
           </div>
         </div>
       </section>
-      <section className="section surface-band">
-        <div className="container-wide grid gap-6 lg:grid-cols-2">
-          <ProblemSolution
-            title="The Challenge"
-            tone="problem"
+
+      {/* --- CHALLENGE / SOLUTION SECTION --- */}
+      <section className="py-24 border-y border-[var(--border-soft)] surface-band">
+        <div className="container-wide px-6 grid gap-12 lg:grid-cols-2">
+          <ServiceOutcomeCard
+            type="challenge"
+            title="The Industry Friction"
             items={service.challenge}
           />
-          <ProblemSolution
-            title="Our Solution"
-            tone="solution"
+          <ServiceOutcomeCard
+            type="solution"
+            title="The Engineered Response"
             items={service.solution}
           />
         </div>
       </section>
-      <section className="section bg-[var(--bg-app)]">
-        <div className="container-wide">
-          <SectionLabel>What We Offer</SectionLabel>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {service.deliverables.map((item) => (
+
+      {/* --- MINIMALIST DELIVERABLES --- */}
+      <section className="py-20">
+        <div className="container-wide px-6">
+          <div className="mb-16">
+            <h2 className="text-sm font-mono uppercase tracking-[0.3em] text-[var(--gold-warm)] mb-4">
+              Service Scope
+            </h2>
+            <div className="h-px w-12 bg-[var(--gold-warm)]" />
+          </div>
+
+          <div className="divide-y divide-[var(--border-soft)] border-t border-[var(--border-soft)]">
+            {service.deliverables.map((item, idx) => (
               <div
-                key={item}
-                className="panel p-5 font-heading font-semibold text-[var(--text-primary)]"
+                key={idx}
+                className="group grid grid-cols-1 md:grid-cols-12 py-8 items-baseline transition-all duration-300 hover:bg-[var(--bg-panel)] px-4 -mx-4 rounded-lg"
               >
-                <span className="mr-2 text-gold-warm">+</span>
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="section surface-band">
-        <div className="container-wide">
-          <SectionLabel>Service Process</SectionLabel>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-5">
-            {service.process.map((step, index) => (
-              <div key={step} className="panel p-6 text-center">
-                <span className="font-display text-4xl font-bold text-gold-warm">
-                  0{index + 1}
+                <span className="col-span-1 font-mono text-[10px] text-[var(--text-muted)]">
+                  0{idx + 1}
                 </span>
-                <h3 className="mt-3 font-heading font-bold text-[var(--text-primary)]">
-                  {step}
+                <h3 className="col-span-1 md:col-span-7 text-xl md:text-2xl font-medium text-[var(--text-primary)]">
+                  {item}
                 </h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="section bg-[var(--bg-app)]">
-        <div className="container-wide">
-          <SectionLabel>Benefits You Get</SectionLabel>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {service.benefits.map((benefit) => (
-              <div key={benefit} className="panel-strong p-6 text-center">
-                <div className="text-3xl">{service.emoji}</div>
-                <p className="mt-4 font-heading font-semibold text-[var(--text-primary)]">
-                  {benefit}
+                <p className="col-span-1 md:col-span-4 text-[10px] font-mono uppercase tracking-widest text-[var(--text-muted)] md:text-right mt-2 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Fully Integrated
                 </p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
       <IndustriesSection />
-      <CTABanner />
-    </>
+      <div className="py-12">
+        <CTABanner />
+      </div>
+    </main>
   );
 }
 
-function ProblemSolution({
+function ServiceOutcomeCard({
+  type,
   title,
-  tone,
   items,
 }: {
+  type: "challenge" | "solution";
   title: string;
-  tone: "problem" | "solution";
   items: string[];
 }) {
+  const isProblem = type === "challenge";
   return (
     <div
-      className={`rounded-3xl border p-7 ${tone === "problem" ? "border-gold-warm/40 bg-gold-pale/30" : "panel"}`}
+      className={`p-10 rounded-[2.5rem] border transition-all duration-500 ${
+        isProblem
+          ? "border-red-500/20 bg-red-500/5"
+          : "border-[var(--gold-warm)]/20 bg-[var(--gold-warm)]/5"
+      }`}
     >
-      <h2 className="font-heading text-2xl font-bold text-[var(--text-primary)]">
-        {tone === "problem" ? "-" : "+"} {title}
-      </h2>
-      <div className="mt-5 grid gap-3">
-        {items.map((item) => (
+      <div className="flex items-center gap-4 mb-8">
+        {isProblem ? (
+          <XCircle className="text-red-500" size={20} />
+        ) : (
+          <CheckCircle2 className="text-[var(--gold-warm)]" size={20} />
+        )}
+        <h2 className="text-sm font-mono uppercase tracking-[0.3em] text-[var(--text-muted)]">
+          {title}
+        </h2>
+      </div>
+      <div className="space-y-6">
+        {items.map((item, idx) => (
           <p
-            key={item}
-            className="font-body text-sm leading-7 text-[var(--text-secondary)]"
+            key={idx}
+            className="text-lg text-[var(--text-secondary)] leading-relaxed font-medium"
           >
             {item}
           </p>

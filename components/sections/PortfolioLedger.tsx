@@ -57,7 +57,8 @@ export default function PortfolioLedger({ cases }: { cases: any[] }) {
               <div className="w-full lg:w-2/5 space-y-8">
                 <div className="space-y-4">
                   <span className="text-sm font-mono uppercase tracking-[0.3em] text-gold-highlight">
-                    [ 0{idx + 1} { '//' }{project.category} ]
+                    [ 0{idx + 1} {"//"}
+                    {project.category} ]
                   </span>
                   <h2 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] tracking-tighter">
                     {project.title}
