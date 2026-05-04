@@ -4,6 +4,8 @@ import { BlogTabs } from "@/components/sections/BlogTabs";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { getPublishedBlogPosts } from "@/lib/blog/store";
 import { notFound } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -20,10 +22,11 @@ export default async function BlogPage() {
   if (!featured) notFound();
 
   return (
-    <section className="section surface-band pt-32">
-      <div className="container-wide">
+    <section className="bg-[var(--bg-app)] pt-32 pb-20">
+      <div className="container-wide px-6">
+        {/* --- MINIMALIST HEADER --- */}
         <div className="text-center">
-          <SectionLabel>Blog</SectionLabel>
+          <SectionLabel>Journal & Insights</SectionLabel>
           <h1 className="font-heading text-h2 font-bold text-[var(--text-primary)]">
             Insights for{" "}
             <span className="text-gold-warm">Structured Digital Growth</span>
@@ -33,36 +36,70 @@ export default async function BlogPage() {
             want consistent digital systems.
           </p>
         </div>
-        <div className="panel mt-12 grid overflow-hidden lg:grid-cols-2">
-          <div className="relative min-h-[320px] overflow-hidden bg-gradient-to-br from-purple-deep to-purple-vivid text-8xl">
-            {featured.coverImage ? (
-              <Image
-                src={featured.coverImage}
-                alt={featured.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center">
-                {featured.icon}
+
+        {/* --- FEATURED ARTICLE (MINIMAL SPLIT) --- */}
+        <Link
+          href={`/blog/${featured.slug}`}
+          className="group block relative mb-32"
+        >
+          <div className="grid lg:grid-cols-12 gap-12 items-center border-[var(--border-soft)] py-16 transition-colors hover:bg-[var(--gold-warm)]/[0.01]">
+            {/* Image Side */}
+            <div className="lg:col-span-7">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-sm bg-[var(--bg-panel)] border border-[var(--border-soft)]">
+                {featured.coverImage ? (
+                  <Image
+                    src={featured.coverImage}
+                    alt={featured.title}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-8xl opacity-20">
+                    {featured.icon}
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
               </div>
-            )}
+            </div>
+
+            {/* Content Side */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--gold-warm)]">
+                  Featured Article
+                </span>
+                <span className="h-px w-8 bg-[var(--border-soft)]" />
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+                  {featured.category}
+                </span>
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tighter leading-tight group-hover:text-[var(--gold-warm)] transition-colors">
+                {featured.title}
+              </h2>
+
+              <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
+                {featured.excerpt}
+              </p>
+
+              <div className="pt-6 flex items-center justify-between">
+                <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
+                  {featured.date} · {featured.readTime}
+                </p>
+                <div className="flex items-center gap-2 text-[var(--gold-warm)] font-mono text-[10px] uppercase tracking-widest group-hover:gap-4 transition-all">
+                  Read Full Entry <ArrowUpRight size={14} />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="p-8 lg:p-10">
-            <span className="rounded-full bg-gold-warm px-3 py-1 font-label text-[11px] uppercase tracking-wider text-white">
-              {featured.category}
-            </span>
-            <h2 className="mt-5 font-heading text-3xl font-bold text-purple-deep">
-              {featured.title}
-            </h2>
-            <p className="body-light mt-4">{featured.excerpt}</p>
-            <p className="mt-5 font-body text-sm text-slate">
-              {featured.date} · {featured.readTime}
-            </p>
-          </div>
+        </Link>
+
+        {/* --- TABS & ARCHIVE --- */}
+        <div className="mt-2">
+          <BlogTabs posts={posts} />
         </div>
-        <BlogTabs posts={posts} />
       </div>
     </section>
   );
