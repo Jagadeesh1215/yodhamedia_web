@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import {
-  CTABanner,
-  ProcessSteps,
-  StatsSection,
-} from "@/components/sections/HomeSections";
+import { CTABanner, StatsSection } from "@/components/sections/HomeSections";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { services } from "@/lib/constants/services";
 import { GrowthTree } from "@/components/ui/GrowthTree";
 import WhoWeAre from "@/components/ui/whoweare";
-import { motion } from "framer-motion";
-import { Layers, Megaphone, Network, PenTool } from "lucide-react";
 import DifferentiationEditorial from "@/components/ui/differentiationsection";
 
 export const metadata: Metadata = {
@@ -65,7 +59,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <ProcessSteps />
       <DifferentiationEditorial />
       <CTABanner />
     </>
