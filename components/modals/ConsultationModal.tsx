@@ -77,16 +77,16 @@ export function ConsultationModal({
                   Use the free scheduling page if you already have a Calendly or
                   Cal.com link set up.
                 </p>
-              <Link
-                href="/book-consultation"
-                className="mt-3 inline-flex text-sm font-semibold text-gold-warm hover:underline"
-              >
-                Open booking page
-              </Link>
-              <p className="mt-3 text-xs leading-6 text-[var(--text-muted)]">
-                If the modal submission is unavailable, the booking page and the
-                contact form still give visitors a path to reach the team.
-              </p>
+                <Link
+                  href="/book-consultation"
+                  className="mt-3 inline-flex text-sm font-semibold text-gold-warm hover:underline"
+                >
+                  Open booking page
+                </Link>
+                <p className="mt-3 text-xs leading-6 text-[var(--text-muted)]">
+                  If the modal submission is unavailable, the booking page and
+                  the contact form still give visitors a path to reach the team.
+                </p>
               </div>
 
               <form

@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { ArrowLeft, CircleAlert, LayoutDashboard, Newspaper } from "lucide-react";
+import {
+  ArrowLeft,
+  CircleAlert,
+  LayoutDashboard,
+  Newspaper,
+} from "lucide-react";
 
 export default function AdminNotFound() {
   return (

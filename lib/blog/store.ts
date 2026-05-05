@@ -273,10 +273,7 @@ export async function listConsultationLeads() {
   return leads.map((lead) => mapLeadRow(lead as LeadRow));
 }
 
-async function saveLead(
-  lead: LeadRecord,
-  type: "contact" | "consultation",
-) {
+async function saveLead(lead: LeadRecord, type: "contact" | "consultation") {
   await prisma.lead.create({
     data: {
       id: lead.id,

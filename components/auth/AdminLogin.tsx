@@ -51,7 +51,11 @@ export function AdminLogin({
             </span>
             <div>
               <h2 className="text-3xl font-heading font-semibold tracking-tighter text-[var(--text-primary)] md:text-4xl">
-                Sign in to the admin <span className="font-display italic text-[var(--gold-warm)]">sovereignty</span> layer
+                Sign in to the admin{" "}
+                <span className="font-display italic text-[var(--gold-warm)]">
+                  sovereignty
+                </span>{" "}
+                layer
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--text-secondary)]">
                 Use the private admin email and password to manage blog posts,

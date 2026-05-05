@@ -54,11 +54,10 @@ function mapPost(post?: BlogPost): BlogEditorState {
     publishedAt: post?.publishedAt || new Date().toISOString(),
     seoTitle: post?.seoTitle || post?.title || "",
     seoDescription: post?.seoDescription || post?.excerpt || "",
-    content:
-      post?.content?.map((section) => ({
-        heading: section.heading,
-        body: section.body.join("\n"),
-      })) || [{ heading: "", body: "" }],
+    content: post?.content?.map((section) => ({
+      heading: section.heading,
+      body: section.body.join("\n"),
+    })) || [{ heading: "", body: "" }],
   };
 }
 

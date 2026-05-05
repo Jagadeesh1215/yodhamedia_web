@@ -98,7 +98,8 @@ const blogPosts = [
     excerpt:
       "A simple weekly operating routine that improves discovery, review quality, and patient confidence.",
     icon: "⭐",
-    takeaway: "A clinic profile should feel alive, accurate, and easy to trust.",
+    takeaway:
+      "A clinic profile should feel alive, accurate, and easy to trust.",
     headingOne: "Your Profile Is a Front Desk",
     bodyOne: [
       "Patients compare clinics from search results long before they visit a website.",
@@ -163,7 +164,8 @@ const blogPosts = [
     excerpt:
       "Why a stable posting rhythm and message hierarchy beat random bursts of attention.",
     icon: "🔁",
-    takeaway: "Consistency is a brand asset because it trains people to expect you.",
+    takeaway:
+      "Consistency is a brand asset because it trains people to expect you.",
     headingOne: "Randomness Confuses the Audience",
     bodyOne: [
       "A feed with no structure looks active for a day and forgettable for a month.",

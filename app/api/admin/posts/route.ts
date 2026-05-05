@@ -82,7 +82,9 @@ async function uploadToCloudinary(file: File) {
   };
 
   if (!response.ok || !payload.secure_url) {
-    throw new Error(payload.error?.message || "Cloudinary rejected the upload.");
+    throw new Error(
+      payload.error?.message || "Cloudinary rejected the upload.",
+    );
   }
 
   return { url: payload.secure_url, publicId: payload.public_id };
@@ -91,7 +93,9 @@ async function uploadToCloudinary(file: File) {
 async function toBlogPost(formData: FormData): Promise<BlogPost> {
   const file = formData.get("coverImageFile");
   const upload =
-    file instanceof File && file.size > 0 ? await uploadToCloudinary(file) : null;
+    file instanceof File && file.size > 0
+      ? await uploadToCloudinary(file)
+      : null;
 
   return {
     slug: field(formData, "slug")
