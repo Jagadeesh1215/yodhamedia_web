@@ -116,30 +116,95 @@ export function HeroSection() {
 }
 
 export function TrustBar() {
-  const items = [
-    "Trusted by 50+ Hospitals & Clinics",
-    "100+ Projects Delivered",
-    "Social Media Management",
-    "Healthcare Marketing Experts",
-    "Online Reputation Management",
-    "Web Design & Development",
-    "Performance-Driven Marketing",
-    "Influencer Marketing Network",
+  // We only need to duplicate once for a seamless loop
+  // as long as we animate from 0% to -50%
+  const duplicatedItems = [
+    "TRUSTED BY 50+ HOSPITALS",
+    "100+ PROJECTS COMPLETED",
+    "SOCIAL MEDIA EXPERTS",
+    "HEALTHCARE SPECIALISTS",
+    "REPUTATION MANAGERS",
+    "WEB DESIGNERS",
+    "PERFORMANCE MARKETERS",
+    "TRUSTED BY 50+ HOSPITALS",
+    "100+ PROJECTS COMPLETED",
+    "SOCIAL MEDIA EXPERTS",
+    "HEALTHCARE SPECIALISTS",
+    "REPUTATION MANAGERS",
+    "WEB DESIGNERS",
+    "PERFORMANCE MARKETERS",
   ];
+
   return (
-    <div className="surface-band border-y-purple-electric/70 border-y">
-      <div className=" overflow-hidden px-0 py-3">
-        <div className="flex w-max animate-ticker gap-8 whitespace-nowrap">
-          {[...items, ...items].map((item, index) => (
-            <span
-              key={`${item}-${index}`}
-              className="font-label text-[18px] uppercase tracking-wider text-[var(--text-secondary)]"
-            >
-              {item} <span className="ml-8 text-gold-warm">|</span>
-            </span>
-          ))}
-        </div>
+    <div className="relative w-full overflow-hidden bg-[#050505] py-8">
+      {/* 1. DUAL LASER SCANS (TOP) */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-white/5">
+        <motion.div
+          animate={{ x: ["-100%", "200%"] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          className="h-full w-1/3 bg-gradient-to-r from-transparent via-[var(--gold-warm)] to-transparent"
+        />
       </div>
+
+      {/* 2. THE INFINITE CONVEYOR */}
+      <div className="relative flex items-center overflow-hidden">
+        <motion.div
+          animate={{
+            x: ["0%", "-50%"], // Moves exactly half the width of the doubled array
+          }}
+          transition={{
+            duration: 25, // Adjust for speed (lower = faster)
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="flex whitespace-nowrap"
+        >
+          {duplicatedItems.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-8 md:gap-12 lg:gap-16 pr-8 md:pr-12 lg:pr-16"
+            >
+              {/* THE TEXT */}
+              <motion.span
+                whileHover={{
+                  color: "var(--gold-warm)",
+                  letterSpacing: "0.6em",
+                }}
+                className="cursor-none text-[10px] font-bold uppercase tracking-[0.4em] text-white/30 transition-all duration-500 md:text-xs"
+              >
+                {item}
+              </motion.span>
+
+              {/* THE SEPARATOR (SWORD SLASH) */}
+              <div className="relative h-6 w-[1px] rotate-[25deg] bg-white/10">
+                <motion.div
+                  animate={{ y: ["-100%", "100%"] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "linear",
+                    delay: index * 0.1,
+                  }}
+                  className="h-full w-full bg-gradient-to-b from-[var(--gold-warm)] to-[var(--purple-electric)] shadow-[0_0_10px_var(--gold-warm)]"
+                />
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* 3. EDGE MASKS (VITAL FOR INFINITE FEEL) */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 bg-gradient-to-r from-[#050505] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-gradient-to-l from-[#050505] to-transparent" />
+
+      {/* 4. BACKGROUND DEPTH */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-1/2 left-1/4 h-32 w-64 -translate-y-1/2 rounded-full bg-[var(--gold-warm)] blur-[100px] opacity-20" />
+        <div className="absolute top-1/2 right-1/4 h-32 w-64 -translate-y-1/2 rounded-full bg-[var(--purple-deep)] blur-[100px] opacity-20" />
+      </div>
+
+      {/* 5. BOTTOM BORDER */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-white/5" />
     </div>
   );
 }
@@ -1181,40 +1246,62 @@ export function BlogPreview({ posts }: { posts: BlogPost[] }) {
           </Button>
         </div>
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {posts.map((post) => (
+          {posts.slice(0, 3).map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="panel group overflow-hidden transition hover:-translate-y-1 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-card)]"
+              className="group flex flex-col"
             >
-              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-purple-deep to-purple-vivid text-6xl transition group-hover:brightness-110">
+              {/* Image Container */}
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm border border-[var(--border-soft)] bg-[var(--bg-panel)]">
                 {post.coverImage ? (
                   <Image
                     src={post.coverImage}
                     alt={post.title}
                     fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center">
+                  <div className="flex h-full w-full items-center justify-center text-5xl opacity-20">
                     {post.icon}
                   </div>
                 )}
-                <span className="absolute left-4 top-4 rounded-full bg-gold-warm px-3 py-1 font-label text-[11px] uppercase tracking-wider text-white">
-                  {post.category}
-                </span>
+
+                {/* Floating Category Label */}
+                <div className="absolute left-4 top-4">
+                  <span className="bg-[var(--bg-app)]/90 px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-[var(--gold-warm)] backdrop-blur-sm">
+                    {post.category}
+                  </span>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="font-heading text-lg font-semibold text-[var(--text-primary)]">
+
+              {/* Text Content */}
+              <div className="mt-8 flex flex-1 flex-col">
+                <div className="flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                  <span>{post.date}</span>
+                  <span className="h-px w-4 bg-[var(--border-soft)]" />
+                  <span>{post.readTime}</span>
+                </div>
+
+                <h2 className="mt-4 text-2xl font-bold tracking-tight text-[var(--text-primary)] transition-colors group-hover:text-[var(--gold-warm)]">
                   {post.title}
-                </h3>
-                <p className="mt-3 font-body text-sm leading-7 text-[var(--text-secondary)]">
+                </h2>
+
+                <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-[var(--text-secondary)]">
                   {post.excerpt}
                 </p>
-                <span className="mt-5 inline-flex font-heading text-sm font-semibold text-gold-warm">
-                  Read More {"->"}
-                </span>
+
+                {/* Minimal Footer */}
+                <div className="mt-auto pt-6">
+                  <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[var(--gold-warm)]">
+                    View Entry{" "}
+                    <ArrowUpRight
+                      size={12}
+                      className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                    />
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
@@ -1227,15 +1314,13 @@ export function BlogPreview({ posts }: { posts: BlogPost[] }) {
 export function CTABanner() {
   return (
     <section className="section relative overflow-hidden bg-[linear-gradient(135deg,#080514_0%,#1E1245_35%,#2D1B69_65%,#080514_100%)] bg-[length:300%_300%] animate-gradient-shift">
-      <div className="absolute inset-0 opacity-[0.05] [background-image:repeating-radial-gradient(circle_at_center,white_0_1px,transparent_1px_58px)]" />
+      <div className="absolute inset-0 opacity-[0.10] [background-image:repeating-radial-gradient(circle_at_center,white_0_1px,transparent_1px_58px)]" />
       <div className="container-wide bg-[var(--background)] relative text-center">
         <div className="px-6 py-12">
           <SectionLabel>Start the System</SectionLabel>
           <h2 className="mx-auto max-w-3xl font-heading text-h2 font-bold text-white">
-            Ready to Build Your{" "}
-            <span className="font-display italic text-gold-highlight">
-              Digital Presence?
-            </span>
+            Ready to Build Your <br />
+            <span className=" text-gold-highlight">Digital Presence?</span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl font-body leading-8 text-white/70">
             Let&apos;s create a system that works for your business consistently
@@ -1316,26 +1401,5 @@ function OrbitVisual() {
         </div>
       </div>
     </div>
-  );
-}
-
-function BrandMark() {
-  return (
-    <ScrollReveal>
-      <div className="relative mx-auto flex h-80 max-w-sm items-center justify-center">
-        <div className="absolute h-64 w-64 rounded-full bg-purple-electric/25 blur-3xl" />
-        <div className="relative text-center">
-          <div className="mx-auto flex h-40 w-40 rotate-[-6deg] items-center justify-center rounded-[2rem] border border-gold-warm/60 bg-gradient-to-br from-purple-mid to-purple-deep font-display text-8xl font-bold text-gold-highlight shadow-purple-lg animate-float-slow">
-            Y
-          </div>
-          <p className="mt-8 font-heading text-2xl font-bold text-[var(--text-primary)]">
-            YodhaMedia LLP
-          </p>
-          <p className="mt-2 font-label text-label uppercase text-gold-warm">
-            Structured Digital Growth
-          </p>
-        </div>
-      </div>
-    </ScrollReveal>
   );
 }
