@@ -1,184 +1,233 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  ChevronRight,
   ArrowLeft,
-  CheckCircle2,
-  AlertCircle,
+  Zap,
+  Plus,
+  ArrowUpRight,
+  ShieldCheck,
+  Target,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import {
   IndustriesSection,
   CTABanner,
 } from "@/components/sections/HomeSections";
 
-// Define the shape of the service data based on your constants
-interface ServiceDetailProps {
+interface ServiceDetailClientProps {
   service: {
-    name: string;
-    hero: string;
-    category: string;
-    description: string;
+    slug: string;
     emoji: string;
+    name: string;
+    category: string;
+    hero: string;
+    description: string;
+    deliverables: string[];
+    bestFor: string;
     challenge: string[];
     solution: string[];
-    deliverables: string[];
     process: string[];
     benefits: string[];
   };
 }
 
-export default function ServiceDetailView({ service }: ServiceDetailProps) {
+export default function ServiceDetailClient({
+  service,
+}: ServiceDetailClientProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [0, -150]);
+
   return (
-    <div className="bg-[var(--bg-app)]">
-      {/* Hero: Responsive padding and font-scaling */}
-      <section className="relative pt-24 md:pt-32 pb-16 lg:pb-24 border-b border-[var(--border-soft)]">
-        <div className="container-wide px-6">
-          <nav className="flex items-center gap-2 text-[10px] md:text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-8 md:mb-12">
+    <div
+      ref={containerRef}
+      className="bg-[var(--bg-app)] text-[var(--text-primary)] transition-colors duration-500"
+    >
+      {/* --- PROTOCOL HERO --- */}
+      <section className="relative min-h-[85vh] flex flex-col justify-end pb-24 overflow-hidden border-b border-[var(--border-soft)] hero-shell">
+        {/* Floating Background Text */}
+        <motion.div
+          style={{ y: watermarkY }}
+          className="absolute top-20 left-6 pointer-events-none font-black text-[18vw] leading-none opacity-[0.03] select-none italic tracking-tighter"
+        >
+          {service.category}
+        </motion.div>
+
+        <div className="container-wide px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="mb-16"
+          >
             <Link
               href="/services"
-              className="flex items-center gap-1 hover:text-gold-highlight transition-colors"
+              className="admin-chip hover:border-[var(--gold-warm)] transition-colors"
             >
-              <ArrowLeft size={12} /> Services
+              <ArrowLeft size={10} className="mr-2" />
+              Archive / {service.slug}
             </Link>
-            <ChevronRight size={10} className="opacity-30" />
-            <span className="text-gold-highlight truncate">{service.name}</span>
-          </nav>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-5xl"
-          >
-            <SectionLabel className="justify-start mb-6">
-              {service.category}
-            </SectionLabel>
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter text-[var(--text-primary)] leading-[1.1]">
-              {service.hero}
-            </h1>
-            <p className="mt-8 text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed max-w-3xl">
-              {service.description}
-            </p>
-
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <Button href="/contact" className="w-full sm:w-auto px-8">
-                Book Consultation
-              </Button>
-              <Button
-                href="/our-work"
-                variant="outline"
-                className="w-full sm:w-auto px-8"
-              >
-                See Our Work
-              </Button>
-            </div>
           </motion.div>
+
+          <div className="grid lg:grid-cols-[1fr_450px] gap-16 items-end">
+            <div>
+              <span className="admin-kicker mb-4 block underline decoration-var(--gold-warm)/30 underline-offset-8">
+                Service Protocol 00{service.deliverables.length}
+              </span>
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.85] uppercase italic">
+                {service.name.split(" ")[0]} <br />
+                <span className="stroke-text opacity-80">
+                  {service.name.split(" ").slice(1).join(" ")}
+                </span>
+              </h1>
+            </div>
+
+            <div className="panel p-8 backdrop-blur-md bg-[var(--bg-frost)]">
+              <p className="body-light italic mb-8 border-l-2 border-[var(--gold-warm)] pl-6">
+                {service.description}
+              </p>
+              <div className="space-y-4 font-mono text-[10px] uppercase tracking-widest">
+                <div className="flex justify-between border-b border-[var(--border-soft)] pb-2">
+                  <span className="text-[var(--text-muted)]">Objective</span>
+                  <span className="text-[var(--gold-warm)]">
+                    Growth & Authority
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-[var(--border-soft)] pb-2">
+                  <span className="text-[var(--text-muted)]">
+                    Client Archetype
+                  </span>
+                  <span className="text-[var(--text-primary)]">
+                    {service.bestFor}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Strategy Grid: Stacks on mobile, side-by-side on desktop */}
-      <section className="py-12 md:py-20 bg-[var(--bg-panel)]/30">
-        <div className="container-wide px-6 grid lg:grid-cols-2 gap-6 md:gap-8">
-          <StrategyCard
-            title="The Market Gap"
-            items={service.challenge}
-            type="problem"
-            icon={<AlertCircle className="text-red-500/50" />}
-          />
-          <StrategyCard
-            title="Our Resolution"
-            items={service.solution}
-            type="solution"
-            icon={<CheckCircle2 className="text-gold-highlight" />}
-          />
+      {/* --- THE AUDIT: SYSTEM FRICTION VS SOLUTION --- */}
+      <section className="relative z-20">
+        <div className="grid md:grid-cols-2">
+          {/* Challenge Side */}
+          <div className="bg-[var(--dark-surface)] p-12 md:p-24 border-r border-[var(--border-soft)]">
+            <div className="admin-kicker mb-12 text-red-500 opacity-70">
+              Identified Friction
+            </div>
+            <div className="space-y-12">
+              {service.challenge.map((text, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <span className="font-mono text-xs text-white/20">
+                    [{i + 1}]
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-white/80 group-hover:text-white transition-colors">
+                    {text}
+                  </h3>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Solution Side */}
+          <div className="bg-[var(--bg-panel-strong)] p-12 md:p-24 surface-band">
+            <div className="admin-kicker mb-12">System Resolution</div>
+            <div className="space-y-12">
+              {service.solution.map((text, i) => (
+                <div key={i} className="flex gap-6 group">
+                  <span className="font-mono text-xs text-[var(--gold-warm)]">
+                    SPEC_0{i + 1}
+                  </span>
+                  <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tighter italic leading-none">
+                    {text}
+                  </h3>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Deliverables: 3-column grid that simplifies to 1 on mobile */}
-      <section className="py-20">
-        <div className="container-wide px-6">
-          <SectionLabel className="mb-12">Architecture & Output</SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* --- CORE DELIVERABLES GRID --- */}
+      <section className="section bg-[var(--bg-app)]">
+        <div className="container-wide">
+          <div className="flex justify-between items-end mb-20">
+            <h2 className="heading-light text-5xl md:text-7xl uppercase italic tracking-tighter">
+              The <span className="text-[var(--gold-warm)]">Outputs</span>
+            </h2>
+            <span className="admin-kicker hidden md:block">
+              Delivery Manifest v1.0
+            </span>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-[var(--border-strong)] border border-[var(--border-strong)]">
             {service.deliverables.map((item, i) => (
               <div
                 key={i}
-                className="p-6 rounded-2xl bg-[var(--bg-panel)] border border-[var(--border-soft)] flex items-center gap-4 hover:border-gold-highlight/40 transition-colors"
+                className="bg-[var(--bg-panel)] p-12 hover:bg-[var(--purple-deep)] transition-all duration-500 group relative overflow-hidden"
               >
-                <span className="text-gold-highlight font-mono text-xs">
-                  0{i + 1}
-                </span>
-                <span className="font-bold text-[var(--text-primary)]">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                  <ArrowUpRight size={20} className="text-[var(--gold-warm)]" />
+                </div>
+                <div className="mb-16 flex justify-between items-start">
+                  <Zap size={20} className="text-[var(--gold-warm)]" />
+                  <span className="font-mono text-[10px] text-[var(--text-muted)]">
+                    LVL_0{i + 1}
+                  </span>
+                </div>
+                <h4 className="text-xl font-bold uppercase leading-tight group-hover:text-white">
                   {item}
-                </span>
+                </h4>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process: Horizontal on desktop, vertical on mobile */}
-      <section className="py-20 border-y border-[var(--border-soft)]">
-        <div className="container-wide px-6">
-          <SectionLabel className="mb-12 text-center">
-            Execution Roadmap
-          </SectionLabel>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-            {service.process.map((step, i) => (
-              <div
-                key={i}
-                className="relative p-8 rounded-3xl bg-[var(--bg-panel)] border border-[var(--border-soft)]"
+      {/* --- DEPLOYMENT PROTOCOL --- */}
+      <section className="section border-t border-[var(--border-soft)] bg-[var(--bg-panel-strong)]">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-[450px_1fr] gap-20">
+            <div className="sticky top-32 h-fit">
+              <div className="admin-kicker mb-6">Workflow Orchestration</div>
+              <h2 className="heading-light text-6xl leading-[0.85] mb-10 uppercase italic">
+                Strategic <br /> Deployment.
+              </h2>
+              <Button
+                href="/contact"
+                className="w-full h-16 bg-[var(--purple-vivid)] text-white hover:bg-[var(--gold-warm)] transition-all rounded-[var(--radius-sm)] uppercase font-bold tracking-widest text-[11px]"
               >
-                <span className="block text-4xl font-black text-white/5 mb-4">
-                  {i + 1}
-                </span>
-                <h3 className="font-bold text-[var(--text-primary)]">{step}</h3>
-              </div>
-            ))}
+                Initiate Project Protocol
+              </Button>
+            </div>
+
+            <div className="divide-y divide-[var(--border-soft)]">
+              {service.process.map((step, i) => (
+                <div
+                  key={i}
+                  className="group py-10 flex justify-between items-center transition-all"
+                >
+                  <div className="flex items-center gap-10">
+                    <span className="font-mono text-4xl font-black text-[var(--gold-warm)] opacity-20 group-hover:opacity-100 transition-opacity italic">
+                      0{i + 1}
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight group-hover:translate-x-3 transition-transform">
+                      {step}
+                    </h3>
+                  </div>
+                  <Plus className="text-[var(--text-muted)] group-hover:rotate-90 group-hover:text-[var(--gold-warm)] transition-all" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
-
-      <IndustriesSection />
-      <CTABanner />
-    </div>
-  );
-}
-
-function StrategyCard({
-  title,
-  items,
-  type,
-  icon,
-}: {
-  title: string;
-  items: string[];
-  type: "problem" | "solution";
-  icon: React.ReactNode;
-}) {
-  return (
-    <div
-      className={`p-8 md:p-10 rounded-[2.5rem] border ${type === "problem" ? "border-red-500/10 bg-red-500/[0.02]" : "border-gold-highlight/20 bg-gold-highlight/[0.02]"}`}
-    >
-      <div className="flex items-center gap-3 mb-6">
-        {icon}
-        <h2 className="text-xl font-bold tracking-tight uppercase text-[var(--text-primary)]">
-          {title}
-        </h2>
-      </div>
-      <ul className="space-y-4">
-        {items.map((item, idx) => (
-          <li
-            key={idx}
-            className="flex gap-3 text-[var(--text-secondary)] text-sm md:text-base leading-relaxed"
-          >
-            <span className="opacity-30 font-mono mt-1">[{idx + 1}]</span>
-            {item}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
